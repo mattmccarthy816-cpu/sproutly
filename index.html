@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sproutly — Little Moments. Big Growth.</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f8f4ec;
+    --blush: #c8dcc8;
+    --blush-light: #e0eee0;
+    --blush-deep: #4a8a4a;
+    --sage: #4a8a4a;
+    --sage-light: #d4e8d4;
+    --sage-deep: #2d5a2d;
+    --warm-brown: #1e3a1e;
+    --acorn: #d4b89a;
+    --forest: #2d5a2d;
+    --grove: #1e3a1e;
+    --leaf: #4a8a4a;
+    --text-dark: #1e3a1e;
+    --text-mid: #3d6040;
+    --text-light: #6a8a6a;
+    --white: #ffffff;
+    --card-bg: rgba(255,255,255,0.78);
+    --shadow: 0 4px 24px rgba(30,58,30,0.09);
+    --shadow-hover: 0 8px 40px rgba(30,58,30,0.16);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(74,138,74,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(45,90,45,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 60% 30%, rgba(212,184,154,0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 28px 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .logo h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem;
+    font-weight: 300;
+    color: var(--warm-brown);
+    letter-spacing: 0.02em;
+  }
+
+  .logo span {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .week-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(30,58,30,0.12);
+    border-radius: 50px;
+    padding: 10px 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .week-hero label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .week-display {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--grove);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .week-btns { display: flex; gap: 6px; }
+
+  .week-btns button {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--blush);
+    background: transparent;
+    color: var(--warm-brown);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .week-btns button:hover { background: var(--sage-light); }
+
+  /* ── Baby size banner ── */
+  .size-banner {
+    position: relative;
+    z-index: 5;
+    margin: 16px 40px;
+    background: linear-gradient(135deg, rgba(212,232,212,0.5) 0%, rgba(212,184,154,0.2) 100%);
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border: 1px solid rgba(74,138,74,0.25);
+    animation: fadeSlideIn 0.6s ease both;
+  }
+
+  .size-emoji { font-size: 3.5rem; line-height: 1; }
+
+  .size-info h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--warm-brown);
+    line-height: 1.2;
+  }
+
+  .size-info p {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+
+  .size-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .tag {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--blush);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    letter-spacing: 0.05em;
+  }
+
+  .tag.sage { border-color: var(--sage); background: rgba(196,216,196,0.4); color: var(--forest); }
+
+  /* ── Navigation ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin: 0 40px;
+    background: rgba(248,244,236,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,138,74,0.3);
+    display: flex;
+    gap: 4px;
+    padding: 12px 0 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  nav::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    padding: 10px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-light);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-btn:hover { color: var(--warm-brown); }
+
+  .nav-btn.active {
+    color: var(--warm-brown);
+    border-bottom-color: var(--leaf);
+    font-weight: 500;
+  }
+
+  /* ── Main content ── */
+  main {
+    position: relative;
+    z-index: 5;
+    padding: 32px 40px 60px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tab-content { display: none; animation: fadeSlideIn 0.4s ease both; }
+  .tab-content.active { display: block; }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(74,138,74,0.35);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s;
+  }
+
+  .card:hover { box-shadow: var(--shadow-hover); }
+
+  .card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--warm-brown);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+  .stack { display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── Overview tab ── */
+  .week-fact {
+    background: linear-gradient(135deg, rgba(138,171,138,0.15), rgba(74,138,74,0.2));
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    margin: 12px 0;
+    border-left: 3px solid var(--blush-deep);
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .wow-fact {
+    background: linear-gradient(135deg, rgba(212,232,212,0.6), rgba(212,184,154,0.2));
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .wow-icon { font-size: 1.8rem; }
+
+  .wow-fact p {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .wow-fact strong {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--forest);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ── Trimester progress ── */
+  .trimester-bar {
+    margin: 20px 0;
+  }
+
+  .tri-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .bar-track {
+    height: 8px;
+    background: rgba(74,138,74,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--leaf), #6aaa5a);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  /* ── Nutrition tab ── */
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .food-item {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(74,138,74,0.4);
+    border-radius: var(--radius-sm);
+    padding: 14px 12px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .food-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+  .food-item .food-emoji { font-size: 1.8rem; margin-bottom: 6px; }
+
+  .food-item .food-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .food-item .food-reason {
+    font-size: 0.68rem;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  .avoid-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .avoid-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255,240,230,0.4);
+    border: 1px solid rgba(200,140,100,0.2);
+    border-radius: var(--radius-sm);
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  .avoid-item::before {
+    content: '⚠';
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .nutrient-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(74,138,74,0.12);
+  }
+
+  .nutrient-row:last-child { border-bottom: none; }
+
+  .nutrient-name {
+    font-weight: 500;
+    font-size: 0.85rem;
+    min-width: 100px;
+    color: var(--text-dark);
+  }
+
+  .nutrient-sources {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    flex: 1;
+  }
+
+  .nutrient-amount {
+    font-size: 0.75rem;
+    background: var(--sage-light);
+    color: var(--forest);
+    border-radius: 20px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+
+  /* ── Music tab ── */
+  .music-card {
+    background: linear-gradient(135deg, rgba(90,122,90,0.08), rgba(74,138,74,0.15));
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin: 10px 0;
+  }
+
+  .music-card h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--forest);
+    margin-bottom: 8px;
+  }
+
+  .music-card p { font-size: 0.83rem; color: var(--text-mid); line-height: 1.65; }
+
+  .playlist-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(74,138,74,0.3);
+    margin: 8px 0;
+    transition: all 0.2s;
+  }
+
+  .playlist-row:hover { background: rgba(255,255,255,0.8); transform: translateX(4px); }
+
+  .playlist-row .pl-icon { font-size: 1.4rem; }
+
+  .playlist-row .pl-info { flex: 1; }
+
+  .playlist-row .pl-name { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); }
+
+  .playlist-row .pl-desc { font-size: 0.75rem; color: var(--text-light); }
+
+  .speak-prompt {
+    background: rgba(255,255,255,0.6);
+    border: 1px dashed var(--blush);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin: 8px 0;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .speak-prompt strong { color: var(--warm-brown); font-size: 0.9rem; display: block; margin-bottom: 6px; }
+
+  /* ── Habits tab ── */
+  .habit-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(74,138,74,0.3);
+    margin: 8px 0;
+  }
+
+  .habit-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+  .habit-title { font-weight: 500; font-size: 0.88rem; color: var(--text-dark); margin-bottom: 4px; }
+
+  .habit-desc { font-size: 0.79rem; color: var(--text-light); line-height: 1.55; }
+
+  .exercise-chip {
+    display: inline-block;
+    background: var(--sage-light);
+    color: var(--forest);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.76rem;
+    margin: 4px;
+  }
+
+  .exercise-chip.avoid {
+    background: rgba(255,200,180,0.4);
+    color: #a04040;
+  }
+
+  /* ── Development timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blush), var(--sage-light));
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: -24px;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--leaf);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--blush-deep);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tl-dot.t2 { background: var(--leaf); box-shadow: 0 0 0 2px var(--leaf); }
+  .tl-dot.t3 { background: var(--grove); box-shadow: 0 0 0 2px var(--grove); }
+  .tl-dot.inf { background: #6aaa5a; box-shadow: 0 0 0 2px #6aaa5a; }
+
+  .tl-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(74,138,74,0.3);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tl-header:hover { background: rgba(255,255,255,0.85); }
+
+  .tl-week {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--warm-brown);
+    font-weight: 600;
+  }
+
+  .tl-title { font-size: 0.82rem; color: var(--text-mid); }
+
+  .tl-body {
+    display: none;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(74,138,74,0.2);
+    border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .tl-body.open { display: block; animation: fadeSlideIn 0.3s ease; }
+
+  /* ── Learning tab ── */
+  .learn-section {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,138,74,0.3);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .learn-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .learn-header:hover { background: rgba(74,138,74,0.1); }
+
+  .learn-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--warm-brown);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .learn-body {
+    display: none;
+    padding: 0 24px 24px;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    border-top: 1px solid rgba(74,138,74,0.2);
+    padding-top: 20px;
+  }
+
+  .learn-body.open { display: block; animation: fadeSlideIn 0.3s ease; }
+
+  .learn-body p { margin-bottom: 12px; }
+
+  .learn-body ul {
+    margin: 10px 0 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .learn-body li { font-size: 0.83rem; }
+
+  .parent-badge {
+    display: inline-block;
+    background: var(--sage-light);
+    color: var(--leaf);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 0.7rem;
+    margin-left: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .chevron { transition: transform 0.3s; font-size: 0.8rem; color: var(--text-light); }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* ── AI Tab ── */
+  .ai-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 420px;
+  }
+
+  .ai-messages {
+    flex: 1;
+    min-height: 320px;
+    max-height: 420px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 4px 2px;
+    scroll-behavior: smooth;
+  }
+
+  .msg {
+    display: flex;
+    gap: 12px;
+    animation: fadeSlideIn 0.3s ease;
+  }
+
+  .msg.user { flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    background: var(--sage-light);
+    border: 1.5px solid var(--blush);
+  }
+
+  .msg.user .msg-avatar { background: var(--sage-light); border-color: var(--sage); }
+
+  .msg-bubble {
+    max-width: 80%;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(74,138,74,0.35);
+    border-radius: 16px 16px 16px 4px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    line-height: 1.65;
+    box-shadow: var(--shadow);
+  }
+
+  .msg.user .msg-bubble {
+    background: linear-gradient(135deg, rgba(212,232,212,0.4), rgba(212,184,154,0.15));
+    border-radius: 16px 16px 4px 16px;
+    border-color: var(--blush);
+  }
+
+  .ai-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .ai-input {
+    flex: 1;
+    border: 1.5px solid rgba(74,138,74,0.5);
+    border-radius: var(--radius);
+    padding: 12px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    background: rgba(255,255,255,0.7);
+    resize: none;
+    outline: none;
+    transition: border 0.2s;
+    max-height: 120px;
+    min-height: 46px;
+  }
+
+  .ai-input:focus { border-color: var(--leaf); }
+
+  .ai-send {
+    background: linear-gradient(135deg, var(--leaf), var(--grove));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 46px; height: 46px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .ai-send:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(122,92,58,0.3); }
+  .ai-send:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .ai-quick-q {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .quick-btn {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(74,138,74,0.25);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.76rem;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .quick-btn:hover { background: var(--sage-light); color: var(--warm-brown); border-color: var(--blush); }
+
+  .typing-dots {
+    display: flex; gap: 4px; align-items: center; padding: 4px 0;
+  }
+
+  .typing-dots span {
+    width: 7px; height: 7px;
+    background: var(--leaf);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+  }
+
+  /* ── Checklist ── */
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.4);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .check-item:hover { background: rgba(255,255,255,0.7); }
+
+  .check-box {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--blush);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .check-item.checked .check-box {
+    background: var(--leaf);
+    border-color: var(--leaf);
+  }
+
+  .check-item.checked .check-box::after {
+    content: '✓';
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .check-item.checked .check-label {
+    text-decoration: line-through;
+    color: var(--text-light);
+  }
+
+  .check-label { font-size: 0.84rem; color: var(--text-dark); }
+
+  /* ── Section headers ── */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--warm-brown);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-sub {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Responsive ── */
+  /* ── Responsive breakpoints ── */
+
+  /* Large desktop */
+  @media (min-width: 1400px) {
+    header { padding: 32px 60px 0; }
+    nav { padding: 12px 60px 0; }
+    main { padding: 32px 60px 60px; }
+    .size-banner { margin: 16px 60px; }
+  }
+
+  /* Laptop / standard desktop (default — handled above) */
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    header { padding: 22px 28px 0; }
+    nav { padding: 10px 28px 0; }
+    main { padding: 24px 28px 52px; }
+    .size-banner { margin: 14px 28px; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .due-hero-date { font-size: 1.1rem; }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    header { padding: 18px 16px 0; gap: 10px; }
+    nav { padding: 8px 16px 0; }
+    main { padding: 20px 16px 48px; }
+    .size-banner { margin: 12px 16px; padding: 16px 18px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .size-emoji { font-size: 2.6rem; }
+    .size-info h2 { font-size: 1.3rem; }
+    .section-title { font-size: 1.5rem; }
+    .card { padding: 20px 20px; }
+    .due-hero { padding: 8px 14px; }
+    .week-hero { padding: 8px 14px; }
+    .due-hero-date { font-size: 1rem; }
+    .week-display { font-size: 1.5rem; min-width: 44px; }
+    .nav-btn { padding: 8px 12px; font-size: 0.75rem; }
+    .milestone-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Very small phones */
+  @media (max-width: 400px) {
+    .grid-2[style*="grid-template-columns: 1.2fr"] { grid-template-columns: 1fr; }
+    .milestone-grid { grid-template-columns: 1fr; }
+    header { flex-direction: column; align-items: flex-start; }
+  }
+
+  .tri-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sage-light);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    color: var(--leaf);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(74,138,74,0.5), transparent);
+    margin: 24px 0;
+  }
+
+  .scroll-section {
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sage) transparent;
+  }
+
+  .scroll-section::-webkit-scrollbar { width: 4px; }
+  .scroll-section::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 2px; }
+
+  /* ── Due Date Banner in header ── */
+  .due-hero {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(30,58,30,0.12);
+    border-radius: 50px;
+    padding: 10px 20px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .due-hero:hover { box-shadow: var(--shadow-hover); }
+  .due-hero label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .due-hero-date {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--warm-brown);
+  }
+  .due-hero-days {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+
+  /* ── Due Date Calculator Tab ── */
+  .due-input-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .due-input-row label {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    min-width: 140px;
+    font-weight: 500;
+  }
+  .due-input-row input, .due-input-row select {
+    border: 1.5px solid rgba(74,138,74,0.6);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    background: rgba(255,255,255,0.7);
+    outline: none;
+    transition: border 0.2s;
+    flex: 1;
+    min-width: 160px;
+  }
+  .due-input-row input:focus, .due-input-row select:focus { border-color: var(--leaf); }
+
+  .calc-btn {
+    background: linear-gradient(135deg, var(--leaf), var(--grove));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 28px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .calc-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(122,92,58,0.25); }
+
+  .result-card {
+    display: none;
+    background: linear-gradient(135deg, rgba(138,171,138,0.12), rgba(74,138,74,0.2));
+    border: 1.5px solid rgba(74,138,74,0.35);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-top: 24px;
+    animation: fadeSlideIn 0.5s ease both;
+  }
+  .result-card.visible { display: block; }
+
+  .result-due-date {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--warm-brown);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .result-sub {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+
+  .milestone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .milestone-tile {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(74,138,74,0.35);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    transition: all 0.2s;
+  }
+  .milestone-tile:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+  .milestone-tile .mt-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .milestone-tile .mt-date {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--warm-brown);
+    font-weight: 500;
+  }
+  .milestone-tile .mt-desc {
+    font-size: 0.75rem;
+    color: var(--text-mid);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+  .milestone-tile.past { opacity: 0.55; }
+  .milestone-tile.current { border-color: var(--sage); background: rgba(196,216,196,0.25); }
+
+  .countdown-ring {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .count-stat {
+    text-align: center;
+  }
+  .count-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--warm-brown);
+    line-height: 1;
+  }
+  .count-label {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+  .count-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(74,138,74,0.5);
+  }
+
+  .ivf-note {
+    background: rgba(74,138,74,0.08);
+    border: 1px solid rgba(74,138,74,0.25);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    font-size: 0.8rem;
+    color: var(--forest);
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+
+  /* ── Shopping List ── */
+  .shop-section {
+    margin-bottom: 10px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid rgba(74,138,74,0.3);
+  }
+  .shop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+    gap: 12px;
+  }
+  .shop-header:hover { background: rgba(74,138,74,0.1); }
+  .shop-header-left { display: flex; align-items: center; gap: 12px; }
+  .shop-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--warm-brown);
+    margin: 0;
+  }
+  .shop-progress {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    background: rgba(255,255,255,0.6);
+    border-radius: 20px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+  .shop-progress.done { background: var(--sage-light); color: var(--forest); }
+  .shop-body {
+    display: none;
+    padding: 4px 16px 18px;
+    border-top: 1px solid rgba(74,138,74,0.2);
+  }
+  .shop-body.open { display: block; animation: fadeSlideIn 0.3s ease; }
+  .shop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .shop-item:hover { background: rgba(255,255,255,0.6); }
+  .shop-box {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--blush);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .shop-item.checked .shop-box {
+    background: var(--leaf);
+    border-color: var(--leaf);
+  }
+  .shop-item.checked .shop-box::after { content: '✓'; color: white; font-size: 0.7rem; font-weight: 700; }
+  .shop-item.checked .shop-label { text-decoration: line-through; color: var(--text-light); }
+  .shop-label { flex: 1; }
+  .shop-label strong { font-size: 0.84rem; color: var(--text-dark); display: block; line-height: 1.3; }
+  .shop-label span { font-size: 0.74rem; color: var(--text-light); line-height: 1.4; }
+  .shop-priority {
+    font-size: 0.65rem;
+    border-radius: 10px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .pri-must { background: rgba(212,149,110,0.2); color: var(--leaf); }
+  .pri-nice { background: rgba(196,216,196,0.4); color: var(--forest); }
+  .pri-ask  { background: rgba(255,245,200,0.6); color: #8a7020; }
+  .shop-summary {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(74,138,74,0.3);
+  }
+  .shop-sum-stat { text-align: center; }
+  .shop-sum-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--warm-brown); line-height: 1; }
+  .shop-sum-lbl { font-size: 0.68rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-mid); }
+
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header>
+  <div class="logo">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <!-- Sproutly Icon: two-leaf sprout with smile -->
+      <svg width="46" height="46" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <circle cx="31" cy="31" r="30" fill="rgba(45,90,45,0.08)"/>
+        <line x1="31" y1="47" x2="31" y2="27" stroke="#1e3a1e" stroke-width="2" stroke-linecap="round"/>
+        <path d="M31 37 C27 33 20 29 18 22 C24 20 31 25 31 37Z" fill="#4a8a4a"/>
+        <path d="M31 31 C35 26 41 22 43 15 C37 13 31 18 31 31Z" fill="#1e3a1e"/>
+        <path d="M22 48 Q31 54 40 48" stroke="#d4b89a" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <circle cx="22" cy="48" r="1.8" fill="#d4b89a"/>
+        <circle cx="40" cy="48" r="1.8" fill="#d4b89a"/>
+      </svg>
+      <div>
+        <!-- Wordmark with leaf sprouting from the t -->
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <svg viewBox="0 0 285 46" height="38" style="overflow:visible;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="38" font-family="'DM Serif Display', serif" font-size="40" fill="#1e3a1e" letter-spacing="0.3">Sproutly</text>
+            <!-- leaf on the t crossbar -->
+            <g transform="translate(176,3)">
+              <line x1="3.5" y1="17" x2="3.5" y2="6" stroke="#1e3a1e" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M3.5 16 C1.5 11 -2 7 -4 2 C0 0 4.5 5 3.5 16Z" fill="#4a8a4a"/>
+              <path d="M3.5 12 C5.5 7 9 3 11 -1 C7 -3 2.5 1 3.5 12Z" fill="#1e3a1e"/>
+            </g>
+          </svg>
+          <div style="font-family:'Jost',sans-serif;font-size:0.58rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:#6a9a6a;margin-top:2px;">Little Moments. Big Growth.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+    <div class="due-hero" onclick="showTabByName('duedate')">
+      <div>
+        <label>Due Date 🌿</label>
+        <div class="due-hero-date" id="headerDueDate">Dec 19, 2025</div>
+      </div>
+      <div class="due-hero-days" id="headerDaysLeft"></div>
+    </div>
+    <div class="week-hero">
+      <div>
+        <label>Current Week</label>
+        <div class="week-display" id="weekNum">8</div>
+      </div>
+      <div class="week-btns">
+        <button onclick="changeWeek(-1)">−</button>
+        <button onclick="changeWeek(1)">+</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Size Banner ── -->
+<div class="size-banner" id="sizeBanner">
+  <div class="size-emoji" id="sizeEmoji">🫐</div>
+  <div class="size-info">
+    <h2 id="sizeText">About the size of a blueberry</h2>
+    <p id="stageText">Week 8 · First Trimester · ~0.6 inches</p>
+    <div class="size-tags" id="sizeTags">
+      <span class="tag">Heart is beating 150–170 bpm</span>
+      <span class="tag sage">Tiny fingers forming</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Navigation ── -->
+<nav>
+  <button class="nav-btn active" onclick="showTab('overview', this)">📋 Overview</button>
+  <button class="nav-btn" onclick="showTab('nutrition', this)">🥦 Nutrition</button>
+  <button class="nav-btn" onclick="showTab('music', this)">🎵 Music & Sound</button>
+  <button class="nav-btn" onclick="showTab('habits', this)">🧘 Habits</button>
+  <button class="nav-btn" onclick="showTab('development', this)">📏 Development</button>
+  <button class="nav-btn" onclick="showTab('learning', this)">📚 Learning</button>
+  <button class="nav-btn" id="nav-duedate" onclick="showTab('duedate', this)">📅 Due Date</button>
+  <button class="nav-btn" id="nav-shopping" onclick="showTab('shopping', this)">🛍️ Shopping List</button>
+  <button class="nav-btn" onclick="showTab('ai', this)">✨ Ask Sproutly</button>
+</nav>
+
+<!-- ── Main Content ── -->
+<main>
+
+  <!-- ===== OVERVIEW TAB ===== -->
+  <div id="tab-overview" class="tab-content active">
+    <div class="section-title">Your Week at a Glance</div>
+    <div class="section-sub">Everything happening right now, for both of you.</div>
+
+    <div class="trimester-bar">
+      <div class="tri-label">
+        <span id="trimLabel">First Trimester</span>
+        <span id="trimPct">19%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="barFill" style="width:19%"></div></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px">
+      <div class="card">
+        <h3>🤱 What's Happening with Baby</h3>
+        <div id="babyHappening" class="week-fact">Baby's major organs are forming. The heart is already beating. Tiny arm and leg buds are growing, and facial features are beginning to take shape — including the eyes, ears, and nose.</div>
+        <div class="wow-fact" id="wowFact">
+          <div class="wow-icon">✨</div>
+          <div>
+            <strong>This Week's Wow</strong>
+            <p id="wowText">Baby's heart is beating 150–170 times per minute — nearly twice as fast as yours!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🌸 What's Happening with You</h3>
+        <div id="momHappening" class="week-fact">Morning sickness may be peaking around now. You might feel exhausted, have sore breasts, and notice heightened sense of smell. The uterus is growing but not yet visible. Hormones are in full swing!</div>
+
+        <div class="divider"></div>
+        <h3 style="margin-bottom:10px">🗓️ Milestone Checklist</h3>
+        <div class="checklist" id="milestoneChecklist"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>📅 Upcoming Appointments &amp; Tests</h3>
+      <div id="upcomingTests" class="week-fact">
+        <strong style="color:var(--warm-brown)">Weeks 8–12:</strong> First prenatal visit, blood work, genetic counseling options, and the exciting first ultrasound where you may hear the heartbeat for the first time.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NUTRITION TAB ===== -->
+  <div id="tab-nutrition" class="tab-content">
+    <div class="section-title">Nourishing You &amp; Baby</div>
+    <div class="section-sub">What to eat, what to avoid, and why it matters each trimester.</div>
+
+    <div class="tri-badge">🌿 First Trimester Focus</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>✅ Foods to Embrace</h3>
+        <div class="food-grid">
+          <div class="food-item"><div class="food-emoji">🥦</div><span class="food-name">Broccoli</span><span class="food-reason">Folate, iron, fiber</span></div>
+          <div class="food-item"><div class="food-emoji">🥚</div><span class="food-name">Eggs</span><span class="food-reason">Choline, protein</span></div>
+          <div class="food-item"><div class="food-emoji">🍊</div><span class="food-name">Citrus</span><span class="food-reason">Vitamin C, folate</span></div>
+          <div class="food-item"><div class="food-emoji">🐟</div><span class="food-name">Salmon</span><span class="food-reason">DHA, omega-3s</span></div>
+          <div class="food-item"><div class="food-emoji">🫘</div><span class="food-name">Legumes</span><span class="food-reason">Fiber, folate, iron</span></div>
+          <div class="food-item"><div class="food-emoji">🥑</div><span class="food-name">Avocado</span><span class="food-reason">Healthy fats, folate</span></div>
+          <div class="food-item"><div class="food-emoji">🫐</div><span class="food-name">Berries</span><span class="food-reason">Antioxidants, fiber</span></div>
+          <div class="food-item"><div class="food-emoji">🌰</div><span class="food-name">Nuts &amp; Seeds</span><span class="food-reason">Magnesium, protein</span></div>
+          <div class="food-item"><div class="food-emoji">🥛</div><span class="food-name">Dairy</span><span class="food-reason">Calcium, protein</span></div>
+          <div class="food-item"><div class="food-emoji">🍠</div><span class="food-name">Sweet Potato</span><span class="food-reason">Beta-carotene, B6</span></div>
+          <div class="food-item"><div class="food-emoji">🌿</div><span class="food-name">Spinach</span><span class="food-reason">Iron, folate, Mg</span></div>
+          <div class="food-item"><div class="food-emoji">🫚</div><span class="food-name">Olive Oil</span><span class="food-reason">Vitamin E, healthy fat</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ Foods to Avoid</h3>
+        <div class="avoid-list">
+          <div class="avoid-item">Raw or undercooked meat, fish, or eggs — risk of Listeria and Salmonella</div>
+          <div class="avoid-item">High-mercury fish: swordfish, shark, king mackerel, tilefish</div>
+          <div class="avoid-item">Unpasteurized dairy (soft cheeses like Brie, Camembert, blue cheese unless labeled pasteurized)</div>
+          <div class="avoid-item">Raw sprouts (alfalfa, clover, radish) — bacteria risk</div>
+          <div class="avoid-item">Deli meats and hot dogs unless heated until steaming</div>
+          <div class="avoid-item">Alcohol — no safe amount is established during pregnancy</div>
+          <div class="avoid-item">Caffeine limit: under 200mg/day (~1 small coffee)</div>
+          <div class="avoid-item">Unwashed produce — always rinse fruits and vegetables thoroughly</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>💊 Key Nutrients</h3>
+      <div class="nutrient-row">
+        <span class="nutrient-name">Folate / Folic Acid</span>
+        <span class="nutrient-sources">Dark leafy greens, beans, fortified cereals, citrus</span>
+        <span class="nutrient-amount">600 mcg/day</span>
+      </div>
+      <div class="nutrient-row">
+        <span class="nutrient-name">Iron</span>
+        <span class="nutrient-sources">Red meat, spinach, lentils, fortified foods + vitamin C to absorb</span>
+        <span class="nutrient-amount">27 mg/day</span>
+      </div>
+      <div class="nutrient-row">
+        <span class="nutrient-name">Calcium</span>
+        <span class="nutrient-sources">Dairy, fortified plant milk, broccoli, almonds, tofu</span>
+        <span class="nutrient-amount">1,000 mg/day</span>
+      </div>
+      <div class="nutrient-row">
+        <span class="nutrient-name">DHA / Omega-3</span>
+        <span class="nutrient-sources">Salmon, sardines, walnuts, flaxseed, DHA supplement</span>
+        <span class="nutrient-amount">200–300 mg/day</span>
+      </div>
+      <div class="nutrient-row">
+        <span class="nutrient-name">Vitamin D</span>
+        <span class="nutrient-sources">Fortified milk, fatty fish, eggs, sunlight, supplement</span>
+        <span class="nutrient-amount">600 IU/day</span>
+      </div>
+      <div class="nutrient-row">
+        <span class="nutrient-name">Iodine</span>
+        <span class="nutrient-sources">Iodized salt, dairy, seafood — critical for brain development</span>
+        <span class="nutrient-amount">220 mcg/day</span>
+      </div>
+      <div class="nutrient-row">
+        <span class="nutrient-name">Choline</span>
+        <span class="nutrient-sources">Eggs, meat, fish, cruciferous veggies — often missed in prenatal vitamins</span>
+        <span class="nutrient-amount">450 mg/day</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>🥗 Sample Daily Meal Ideas</h3>
+      <div class="grid-3">
+        <div style="background:rgba(255,255,255,0.5); border-radius:var(--radius-sm); padding:16px;">
+          <strong style="font-size:0.8rem; color:var(--sage-deep)">BREAKFAST</strong>
+          <p style="font-size:0.8rem; color:var(--text-mid); margin-top:8px; line-height:1.6">Greek yogurt with berries &amp; granola · Scrambled eggs with spinach · Orange juice</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.5); border-radius:var(--radius-sm); padding:16px;">
+          <strong style="font-size:0.8rem; color:var(--sage-deep)">LUNCH</strong>
+          <p style="font-size:0.8rem; color:var(--text-mid); margin-top:8px; line-height:1.6">Salmon &amp; avocado rice bowl with edamame · Sparkling water with lemon</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.5); border-radius:var(--radius-sm); padding:16px;">
+          <strong style="font-size:0.8rem; color:var(--sage-deep)">DINNER</strong>
+          <p style="font-size:0.8rem; color:var(--text-mid); margin-top:8px; line-height:1.6">Lentil soup with crusty bread · Roasted sweet potato · Broccoli with olive oil</p>
+        </div>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-light); margin-top:14px">💡 Tip: Eat smaller meals more frequently if nausea is an issue. Ginger tea and crackers can help with morning sickness.</p>
+    </div>
+  </div>
+
+  <!-- ===== MUSIC TAB ===== -->
+  <div id="tab-music" class="tab-content">
+    <div class="section-title">Music, Voice &amp; Sound</div>
+    <div class="section-sub">Your voice is the first sound they'll love. Here's how to use it.</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>🔬 What the Research Says</h3>
+        <div class="music-card">
+          <h4>Weeks 1–18: Building the Ears</h4>
+          <p>Baby's inner ear structures form by week 18, but sound processing develops through week 28. Until then, your voice carries through your body as vibration — incredibly intimate even before true hearing begins.</p>
+        </div>
+        <div class="music-card">
+          <h4>Weeks 18–28: Hearing Begins</h4>
+          <p>From around week 18, babies begin to detect sound. By week 25, they can hear clearly. The most familiar sound? Your heartbeat, blood flow, and voice. Research shows newborns recognize and prefer their mother's voice immediately after birth.</p>
+        </div>
+        <div class="music-card">
+          <h4>Weeks 28–40: Active Listening</h4>
+          <p>Baby reacts to sounds with movement. Music with rhythm can be calming. Studies show babies remember repeated melodies from the womb — playing a consistent lullaby now may help soothe them after birth.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🎶 Playlist Ideas</h3>
+        <div class="playlist-row"><div class="pl-icon">🎼</div><div class="pl-info"><div class="pl-name">Classical &amp; Baroque</div><div class="pl-desc">Mozart, Bach, Debussy — gentle and structured</div></div></div>
+        <div class="playlist-row"><div class="pl-icon">🌊</div><div class="pl-info"><div class="pl-name">Nature Sounds</div><div class="pl-desc">Rainfall, ocean waves, forest ambience</div></div></div>
+        <div class="playlist-row"><div class="pl-icon">🎸</div><div class="pl-info"><div class="pl-name">Acoustic Chill</div><div class="pl-desc">Soft acoustic guitar, folk, Bon Iver-style</div></div></div>
+        <div class="playlist-row"><div class="pl-icon">🌙</div><div class="pl-info"><div class="pl-name">Lullabies &amp; Nursery</div><div class="pl-desc">Classics to build familiarity before birth</div></div></div>
+        <div class="playlist-row"><div class="pl-icon">🎷</div><div class="pl-info"><div class="pl-name">Jazz &amp; Soul</div><div class="pl-desc">Easy tempo, warm tones, rich melody</div></div></div>
+        <div class="playlist-row"><div class="pl-icon">🧘</div><div class="pl-info"><div class="pl-name">Meditation &amp; Calm</div><div class="pl-desc">Binaural beats, slow ambient music</div></div></div>
+
+        <div class="divider"></div>
+        <p style="font-size:0.78rem; color:var(--text-light)">🔊 Keep volume moderate — very loud noise can startle baby. Headphones on the belly aren't necessary; they can be soothing to you just as much as to baby.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>🗣️ Talk to Your Baby</h3>
+      <p style="font-size:0.84rem; color:var(--text-mid); margin-bottom:16px; line-height:1.65">From about week 25 onward, your baby can hear and recognize your voice. Talking, singing, and reading aloud regularly helps build the neural pathways for language. Don't worry about feeling silly — try these prompts:</p>
+      <div class="grid-2">
+        <div>
+          <div class="speak-prompt"><strong>📖 Read aloud</strong>Any book works — even what you're reading yourself. The rhythm of language is what matters.</div>
+          <div class="speak-prompt"><strong>🎵 Sing a song</strong>Pick one or two songs and repeat them daily. Your baby will recognize them after birth — it can be a powerful calming tool.</div>
+        </div>
+        <div>
+          <div class="speak-prompt"><strong>💬 Narrate your day</strong>"We're making dinner now... this is pasta, it smells delicious..." Exposure to vocabulary starts here.</div>
+          <div class="speak-prompt"><strong>❤️ Share your feelings</strong>"I can't wait to meet you. Your name is going to be..." Emotional tone communicates even before words are understood.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>👂 What Baby Actually Hears in the Womb</h3>
+      <div class="week-fact">The womb is not silent — it's a symphony! Baby hears a constant low rumble of your heartbeat (~72 bpm), blood rushing through the placenta (like white noise), the gurgles of digestion, your breathing, and most clearly of all, your voice resonating through your bones and chest. External sounds are muffled by about 30 decibels — like hearing music from the next room.</div>
+    </div>
+  </div>
+
+  <!-- ===== HABITS TAB ===== -->
+  <div id="tab-habits" class="tab-content">
+    <div class="section-title">Healthy Habits &amp; Wellness</div>
+    <div class="section-sub">How to sleep, move, rest, and thrive throughout pregnancy.</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>😴 Sleep Guidance</h3>
+        <div class="habit-item">
+          <div class="habit-icon">🛌</div>
+          <div>
+            <div class="habit-title">Left side sleeping (after 20 weeks)</div>
+            <div class="habit-desc">Sleeping on your left side improves blood flow to baby and your kidneys. It's fine to switch sides — if you wake on your back, just roll over. A pregnancy pillow (between knees and behind back) helps enormously.</div>
+          </div>
+        </div>
+        <div class="habit-item">
+          <div class="habit-icon">🌜</div>
+          <div>
+            <div class="habit-title">Consistent sleep schedule</div>
+            <div class="habit-desc">Try to go to bed and wake at the same time each day. Fatigue is normal — naps are completely okay, especially in the first and third trimesters.</div>
+          </div>
+        </div>
+        <div class="habit-item">
+          <div class="habit-icon">📵</div>
+          <div>
+            <div class="habit-title">Wind-down routine</div>
+            <div class="habit-desc">Limit screens 30–60 min before bed. A warm (not hot) bath, light reading, or gentle stretching helps signal your body to rest.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🧘 Stress &amp; Mental Wellness</h3>
+        <div class="habit-item">
+          <div class="habit-icon">🌬️</div>
+          <div>
+            <div class="habit-title">4-7-8 Breathing</div>
+            <div class="habit-desc">Inhale for 4 counts, hold for 7, exhale for 8. Activates the parasympathetic nervous system. Do 3–4 cycles when feeling anxious or overwhelmed.</div>
+          </div>
+        </div>
+        <div class="habit-item">
+          <div class="habit-icon">🚶</div>
+          <div>
+            <div class="habit-title">Daily outdoor walks</div>
+            <div class="habit-desc">Even 20 minutes outside reduces cortisol, improves mood, supports blood pressure, and gives you both fresh air and light. One of the simplest things you can do.</div>
+          </div>
+        </div>
+        <div class="habit-item">
+          <div class="habit-icon">📓</div>
+          <div>
+            <div class="habit-title">Journaling</div>
+            <div class="habit-desc">Writing down worries helps process them. Consider keeping a pregnancy journal — you'll cherish it later. Include what you're feeling, what you're hoping for, letters to baby.</div>
+          </div>
+        </div>
+        <div class="habit-item">
+          <div class="habit-icon">💬</div>
+          <div>
+            <div class="habit-title">Talk about it</div>
+            <div class="habit-desc">Anxiety during pregnancy is very common. Confide in your partner, a friend, or consider prenatal therapy. You don't need to "manage" everything alone.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>🏃 Exercise During Pregnancy</h3>
+      <p style="font-size:0.84rem; color:var(--text-mid); margin-bottom:14px">Most women can and should exercise throughout a healthy pregnancy. Aim for ~150 min/week of moderate activity. Always check with your provider.</p>
+      <p style="font-size:0.78rem; color:var(--text-light); margin-bottom:10px; font-weight:500">RECOMMENDED:</p>
+      <div style="margin-bottom:16px">
+        <span class="exercise-chip">🚶 Walking</span>
+        <span class="exercise-chip">🏊 Swimming</span>
+        <span class="exercise-chip">🧘 Prenatal Yoga</span>
+        <span class="exercise-chip">🚴 Stationary Bike</span>
+        <span class="exercise-chip">💪 Light Strength Training</span>
+        <span class="exercise-chip">🩰 Low-Impact Aerobics</span>
+        <span class="exercise-chip">🤸 Pilates (modified)</span>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-light); margin-bottom:10px; font-weight:500">AVOID / MODIFY:</p>
+      <div>
+        <span class="exercise-chip avoid">Contact sports</span>
+        <span class="exercise-chip avoid">High altitude after T1</span>
+        <span class="exercise-chip avoid">Lying flat on back after 20w</span>
+        <span class="exercise-chip avoid">Hot yoga / hot tubs</span>
+        <span class="exercise-chip avoid">Heavy lifting above head</span>
+        <span class="exercise-chip avoid">High-impact jumping</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>🤝 Partner Involvement</h3>
+      <div class="grid-2">
+        <div>
+          <div class="habit-item" style="margin-bottom:8px">
+            <div class="habit-icon">👐</div>
+            <div>
+              <div class="habit-title">Pregnancy massage</div>
+              <div class="habit-desc">Learn a few gentle strokes for lower back and feet. Deeply appreciated, especially in the third trimester.</div>
+            </div>
+          </div>
+          <div class="habit-item">
+            <div class="habit-icon">📚</div>
+            <div>
+              <div class="habit-title">Read together</div>
+              <div class="habit-desc">Go through this app together. Read to the bump. Partners who engage with the pregnancy report stronger early bonding.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="habit-item" style="margin-bottom:8px">
+            <div class="habit-icon">🏥</div>
+            <div>
+              <div class="habit-title">Attend appointments</div>
+              <div class="habit-desc">Being at ultrasounds and key prenatal visits makes it real. Partners who attend feel more connected from the start.</div>
+            </div>
+          </div>
+          <div class="habit-item">
+            <div class="habit-icon">🍽️</div>
+            <div>
+              <div class="habit-title">Take over the kitchen</div>
+              <div class="habit-desc">First trimester nausea can make cooking unbearable. Taking on meals is one of the most tangible ways to support.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DEVELOPMENT TAB ===== -->
+  <div id="tab-development" class="tab-content">
+    <div class="section-title">Week-by-Week Development</div>
+    <div class="section-sub">Click any week to explore what's happening. Currently showing your week highlighted.</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>🌱 First Trimester <span class="tag" style="font-family:DM Sans; font-size:0.7rem">Weeks 1–13</span></h3>
+        <div class="timeline scroll-section" id="t1-timeline"></div>
+      </div>
+      <div class="card">
+        <h3>🌿 Second Trimester <span class="tag sage" style="font-family:DM Sans; font-size:0.7rem">Weeks 14–27</span></h3>
+        <div class="timeline scroll-section" id="t2-timeline"></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:20px">
+      <div class="card">
+        <h3>🌳 Third Trimester <span class="tag" style="font-family:DM Sans; font-size:0.7rem; background:rgba(74,138,74,0.4)">Weeks 28–40</span></h3>
+        <div class="timeline scroll-section" id="t3-timeline"></div>
+      </div>
+      <div class="card">
+        <h3>👶 Fourth Trimester <span class="tag sage" style="font-family:DM Sans; font-size:0.7rem">Months 0–3</span></h3>
+        <div class="timeline scroll-section" id="t4-timeline"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LEARNING TAB ===== -->
+  <div id="tab-learning" class="tab-content">
+    <div class="section-title">Learning Library</div>
+    <div class="section-sub">Digestible guides on everything from birth to baby's first year.</div>
+
+    <div id="learn-accordion"></div>
+  </div>
+
+  <!-- ===== DUE DATE TAB ===== -->
+  <div id="tab-duedate" class="tab-content">
+    <div class="section-title">Due Date Calculator</div>
+    <div class="section-sub">IVF / FET · Natural conception · Calculate your full pregnancy timeline.</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>🌿 Calculate Your Due Date</h3>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:4px;">
+          <div class="due-input-row">
+            <label>Conception type</label>
+            <select id="concType" onchange="toggleConcType()">
+              <option value="ivf5">IVF / FET &mdash; Day 5 Blastocyst</option>
+              <option value="ivf3">IVF / FET &mdash; Day 3 Embryo</option>
+              <option value="natural">Natural / LMP</option>
+            </select>
+          </div>
+          <div class="due-input-row" id="transferRow">
+            <label>Transfer / retrieval date</label>
+            <input type="date" id="transferDate" value="2026-04-02">
+          </div>
+          <div class="due-input-row" id="lmpRow" style="display:none;">
+            <label>First day of last period</label>
+            <input type="date" id="lmpDate">
+          </div>
+          <button class="calc-btn" onclick="calculateDueDate()">Calculate My Due Date &rarr;</button>
+        </div>
+
+        <div class="ivf-note" id="ivfNote" style="margin-top:20px;">
+          <strong>How IVF dating works:</strong> For a Day 5 blastocyst transfer, 261 days are added to your transfer date (266 days from fertilization minus the 5 days the embryo already developed). At the moment of transfer, you are already considered 2 weeks + 5 days pregnant by standard obstetric dating.
+        </div>
+      </div>
+
+      <div class="card" id="resultCard" style="display:none;">
+        <h3>&#127881; Your Estimated Due Date</h3>
+        <div class="result-due-date" id="resultDueDate">&mdash;</div>
+        <div class="result-sub" id="resultSub"></div>
+        <div class="countdown-ring" id="countdownRing"></div>
+        <div class="divider"></div>
+        <p style="font-size:0.78rem;color:var(--text-light)">&#128204; This is an estimate. Your provider will confirm your due date at your first ultrasound. Only ~5% of babies arrive on their exact due date.</p>
+      </div>
+    </div>
+
+    <div id="milestoneSection" style="display:none;margin-top:20px;">
+      <div class="card">
+        <h3>&#128197; Your Pregnancy Timeline</h3>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:16px;">Key dates and milestones &mdash; <span style="color:var(--sage-deep)">highlighted = current or upcoming</span>, faded = past.</p>
+        <div class="milestone-grid" id="milestoneGrid"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===== SHOPPING LIST TAB ===== -->
+  <div id="tab-shopping" class="tab-content">
+    <div class="section-title">The Big Shopping List</div>
+    <div class="section-sub">Everything you need — from the third trimester through baby's first year. Check things off as you go.</div>
+
+    <div class="shop-summary">
+      <div class="shop-sum-stat"><div class="shop-sum-num" id="shopTotal">0</div><div class="shop-sum-lbl">Total Items</div></div>
+      <div style="width:1px;background:rgba(74,138,74,0.4);"></div>
+      <div class="shop-sum-stat"><div class="shop-sum-num" id="shopChecked">0</div><div class="shop-sum-lbl">Checked Off</div></div>
+      <div style="width:1px;background:rgba(74,138,74,0.4);"></div>
+      <div class="shop-sum-stat"><div class="shop-sum-num" id="shopLeft">0</div><div class="shop-sum-lbl">Still Needed</div></div>
+      <div style="width:1px;background:rgba(74,138,74,0.4);"></div>
+      <div style="flex:1;display:flex;align-items:center;">
+        <div style="flex:1;height:8px;background:rgba(74,138,74,0.12);border-radius:4px;overflow:hidden;">
+          <div id="shopBar" style="height:100%;background:linear-gradient(90deg,var(--leaf),#6aaa5a);border-radius:4px;width:0%;transition:width 0.4s;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="legend-item"><span class="shop-priority pri-must">MUST HAVE</span> Essential before baby arrives</span>
+      <span class="legend-item"><span class="shop-priority pri-nice">NICE TO HAVE</span> Helpful but not urgent</span>
+      <span class="legend-item"><span class="shop-priority pri-ask">ASK FOR</span> Great registry or shower requests</span>
+    </div>
+
+    <div id="shopAccordion"></div>
+  </div>
+
+  <!-- ===== AI TAB ===== -->
+  <div id="tab-ai" class="tab-content">
+    <div class="section-title">Ask Sproutly ✨</div>
+    <div class="section-sub">Ask anything about pregnancy, nutrition, symptoms, baby development, or parenting. Powered by AI.</div>
+
+    <div class="card">
+      <div class="ai-quick-q">
+        <button class="quick-btn" onclick="quickAsk('Is it safe to eat sushi during pregnancy?')">🍣 Can I eat sushi?</button>
+        <button class="quick-btn" onclick="quickAsk('What music should I play for my baby in the third trimester?')">🎵 Music for third trimester?</button>
+        <button class="quick-btn" onclick="quickAsk('I have morning sickness — what can I do to feel better?')">🤢 Morning sickness tips</button>
+        <button class="quick-btn" onclick="quickAsk('What should I pack in a hospital bag?')">🏥 Hospital bag list</button>
+        <button class="quick-btn" onclick="quickAsk('How do I know if I am in labor?')">🤱 Signs of labor</button>
+        <button class="quick-btn" onclick="quickAsk('What are safe sleep guidelines for a newborn?')">😴 Newborn safe sleep</button>
+      </div>
+
+      <div class="ai-messages" id="aiMessages">
+        <div class="msg">
+          <div class="msg-avatar">🌿</div>
+          <div class="msg-bubble">Hi! I'm Sproutly, your pregnancy and parenting companion. Ask me anything — symptoms, nutrition, what to expect, newborn care, or anything else on your mind. I'm here to help! 🌱</div>
+        </div>
+      </div>
+
+      <div class="ai-input-row">
+        <textarea class="ai-input" id="aiInput" placeholder="Ask anything about pregnancy or baby..." rows="1"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"
+          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+        <button class="ai-send" id="aiSend" onclick="sendAI()">➤</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+
+
+// ══════════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════════
+
+const weekData = {
+  4:  { emoji:'🌱', size:'Poppy seed', dim:'~0.04 in', tri:1, babyText:'The fertilized egg has implanted in the uterus. The embryo is forming three layers: the ectoderm (skin, brain), mesoderm (muscles, heart), and endoderm (organs). The amniotic sac and placenta are starting to form.', momText:'You might not feel much yet — perhaps some light spotting (implantation bleeding) and fatigue. hCG hormone is rising, which causes a positive pregnancy test.', wow:'Your baby is already dividing into the three building blocks of every organ in the body!', tags:['Implantation complete','hCG rising','Three cell layers forming'] },
+  5:  { emoji:'🌿', size:'Sesame seed', dim:'~0.13 in', tri:1, babyText:'The neural tube, which will become the brain and spinal cord, is forming. The heart is beginning to form and will start beating this week. Arm and leg buds are just beginning to appear.', momText:'Nausea may begin. Breasts may feel tender. Fatigue can be intense. The embryo is still tiny but growth is rapid.', wow:'The tiny heart may beat for the first time this week — a single flickering tube before it divides into chambers.', tags:['Neural tube forming','Heart beginning','~1mm long'] },
+  6:  { emoji:'🫘', size:'Lentil', dim:'~0.25 in', tri:1, babyText:'The heart is now beating about 100–160 times per minute. The brain is growing rapidly. Tiny dark spots mark where eyes and nostrils will form. Arm and leg buds are growing.', momText:'Morning sickness often peaks here. Frequent urination, mood swings, and food aversions are common. Sense of smell may be heightened dramatically.', wow:'Baby\'s heart is beating — you may be able to see it on an early ultrasound as a tiny flicker!', tags:['Heart beating 100–160 bpm','Eyes & nose spots forming','Brain developing fast'] },
+  7:  { emoji:'🫐', size:'Blueberry', dim:'~0.5 in', tri:1, babyText:'Baby has doubled in size. The brain is developing distinct segments. Facial features continue to form including ear indentations. Tiny fingers and toes are webbed at this point.', momText:'Bloating, heartburn, and constipation may begin. You likely still don\'t look pregnant externally but your uterus is now about the size of a lemon.', wow:'Baby\'s brain is generating 100 new neurons every minute right now!', tags:['Brain growing rapidly','Webbed finger buds','Face forming'] },
+  8:  { emoji:'🫐', size:'Raspberry', dim:'~0.63 in', tri:1, babyText:'Baby\'s major organs are forming. The heart is beating 150–170 bpm. Tiny arm and leg buds are growing, and facial features including eyes, ears, and nose are taking shape. Fingers are losing their webbing.', momText:'Morning sickness may be peaking. You might feel exhausted with sore breasts and heightened smell. Hormones are in full swing! The uterus is growing but not yet visible.', wow:'Baby\'s heart is beating 150–170 times per minute — nearly twice as fast as yours!', tags:['Heart 150–170 bpm','Tiny fingers forming','All major organs present'] },
+  9:  { emoji:'🍇', size:'Grape', dim:'~0.9 in', tri:1, babyText:'Baby now officially graduates from embryo to fetus! All essential organs have formed. Tiny muscles allow for movement, though you won\'t feel it yet. Eyelids cover developing eyes.', momText:'The embryo-to-fetus transition is a major milestone. Nausea may start improving. You might notice your waistband getting a bit tighter.', wow:'Baby is officially a fetus — all the essential organ systems are now in place and will spend the rest of pregnancy growing and maturing!', tags:['Now called a fetus','Muscles forming','Moving (can\'t feel yet)'] },
+  10: { emoji:'🫒', size:'Kumquat', dim:'~1.2 in', tri:1, babyText:'Tiny fingernails and toenails are beginning to form. Baby can bend their elbows. The vital organs are functional. Tooth buds are forming beneath the gums.', momText:'Round ligament pain (sharp pulling sensation on lower abdomen) may begin as uterus stretches. Fatigue may be starting to lift slightly.', wow:'Baby\'s tooth buds are already forming beneath the gums — before they even have teeth to lose!', tags:['Fingernails forming','Elbows bending','Tooth buds developing'] },
+  11: { emoji:'🫛', size:'Fig', dim:'~1.6 in', tri:1, babyText:'Baby is almost fully formed with a head that takes up about half the body. Hair follicles are forming. Baby can hiccup (which you won\'t feel yet). Bones are beginning to harden.', momText:'You may be past the worst of first trimester symptoms. The risk of miscarriage drops significantly after week 10–12. Many couples share news around now.', wow:'Baby can get the hiccups already — their diaphragm is practicing movements it will use for breathing!', tags:['Hiccupping','Bones hardening','Hair follicles forming'] },
+  12: { emoji:'🍋', size:'Lime', dim:'~2.1 in', tri:1, babyText:'Baby\'s reflexes are developing — fingers open and close, toes curl. The digestive system is practicing peristalsis. Brain is developing rapidly. Unique fingerprints are forming.', momText:'End of first trimester — a major milestone! Risk of miscarriage is now significantly lower. Prenatal screening tests (like the NT scan) are done around this week.', wow:'Baby already has unique fingerprints — no two are alike, even for identical twins!', tags:['Fingerprints forming','Reflexes developing','End of 1st trimester'] },
+  13: { emoji:'🍑', size:'Peach', dim:'~2.9 in', tri:1, babyText:'Baby\'s vocal cords are forming. The intestines, which were temporarily in the umbilical cord, are moving back into the abdomen. Tissue that will become genitalia is differentiating.', momText:'Welcome to the second trimester! Most women feel a surge of energy now. Nausea typically fades. Your bump may just be starting to show.', wow:'Baby\'s vocal cords are already forming — the hardware for language is in place from the very beginning!', tags:['Vocal cords forming','2nd trimester starts','Energy returning'] },
+  14: { emoji:'🍋', size:'Lemon', dim:'~3.4 in', tri:2, babyText:'Baby can make facial expressions — squinting, grimacing, frowning. Kidneys are producing urine. Fine hair called lanugo begins to cover the body to regulate temperature.', momText:'Second trimester energy boost is in full swing. Appetite may increase. Round ligament pain is common. Some women begin to "show" clearly now.', wow:'Baby is already making facial expressions — grimacing, squinting, even practicing a frown!', tags:['Facial expressions','Lanugo hair forming','Kidneys producing urine'] },
+  16: { emoji:'🥑', size:'Avocado', dim:'~4.6 in', tri:2, babyText:'Baby can hear! The ears are positioned correctly and functional. Eyes can move behind closed lids. Baby can grasp. The skeletal system is visible on ultrasound.', momText:'You may feel the first flutters of movement (quickening) — often described as bubbles or butterflies. Maternity clothes may be needed now.', wow:'Baby can hear sounds for the first time this week — your heartbeat is their first lullaby!', tags:['Hearing begins','First movements (quickening)','Eyes moving'] },
+  18: { emoji:'🍠', size:'Sweet potato', dim:'~5.6 in', tri:2, babyText:'Baby is very active — kicking, rolling, and even doing somersaults. The ears are fully developed. Baby may startle at loud noises. Myelin (nerve insulation) begins forming on the spinal cord.', momText:'The anatomy scan (20-week scan) is coming up. You may feel regular kicks now. Back pain may begin as your center of gravity shifts.', wow:'Baby is doing full somersaults in the womb — you may feel this as rolling sensations!', tags:['Active movements','Ears fully formed','Nerve insulation forming'] },
+  20: { emoji:'🍌', size:'Banana', dim:'~6.5 in', tri:2, babyText:'Baby has a regular sleep/wake cycle. Vernix caseosa (a waxy protective coating) covers the skin. If it\'s a girl, her uterus is fully formed. Taste buds are developing.', momText:'Halfway there! The anatomy scan happens around now. You\'re likely feeling regular kicks. This is often the most comfortable trimester.', wow:'Halfway milestone — your baby is now fully formed and spending the rest of pregnancy growing and getting ready for the world!', tags:['Halfway!','Taste buds developing','Sleep/wake cycle'] },
+  24: { emoji:'🌽', size:'Corn', dim:'~11.8 in', tri:2, babyText:'Baby\'s face is fully formed. Footprints and handprints are complete. The lungs are producing surfactant — the substance needed to breathe air. Baby responds to familiar voices.', momText:'Glucose screening test typically happens at 24–28 weeks. Braxton Hicks contractions (practice contractions) may begin. Back, hip, and leg discomfort can increase.', wow:'Baby can recognize your voice and respond to it with movement — talk to them daily!', tags:['Recognizes your voice','Lungs making surfactant','Viability milestone (24w)'] },
+  28: { emoji:'🥦', size:'Large eggplant', dim:'~14.8 in', tri:3, babyText:'Third trimester begins. Baby can blink, and eyes respond to light. Brain waves show REM sleep cycles — baby may be dreaming. Kicks are strong and regular.', momText:'Welcome to the third trimester. Heartburn, shortness of breath, and back pain are common. Your belly is growing rapidly. Kick counts become important.', wow:'Baby is having REM sleep — scientists believe they may experience something like dreams even in the womb!', tags:['Third trimester begins','REM sleep (dreaming?)','Responds to light'] },
+  32: { emoji:'🥥', size:'Coconut', dim:'~16.7 in', tri:3, babyText:'Baby\'s skin is becoming smoother as fat deposits fill in. All five senses are working. Fingernails have reached the fingertips. Baby is practicing breathing movements regularly.', momText:'Swelling in feet and ankles is common. Sleep becomes difficult. Braxton Hicks may increase. Your provider may discuss birth preferences around this time.', wow:'Baby\'s skin goes from translucent to the smooth, plump skin you\'ll see at birth over just these last few weeks!', tags:['Fat deposits filling in','All 5 senses working','Breathing practice'] },
+  36: { emoji:'🍈', size:'Honeydew melon', dim:'~18.7 in', tri:3, babyText:'Baby drops lower into the pelvis (lightening/engagement). Lungs are nearly fully mature. Most babies are in a head-down position by now. Gaining about half a pound per week.', momText:'You may breathe easier as baby drops (lightening). Pelvic pressure increases. Frequent urination returns. You might have a burst of energy (nesting instinct!).', wow:'If born now, babies have a 99%+ survival rate — the last weeks are about fine-tuning and fattening up!', tags:['Dropping into pelvis','Lungs nearly mature','Nesting instinct'] },
+  40: { emoji:'🎃', size:'Small pumpkin', dim:'~20.2 in', tri:3, babyText:'Baby is fully developed and ready to be born. Fat stores are complete. The skull bones are not yet fused to allow passage through the birth canal. Baby will typically weigh 6–9 lbs.', momText:'Due date! Remember that only 5% of babies are born on their exact due date — 40 weeks is an estimate. Signs of labor: regular contractions, water breaking, bloody show.', wow:'Only ~5% of babies arrive on their due date — but whenever they come, they\'re perfectly ready!', tags:['Full term!','Ready to be born','Average 7.5 lbs'] },
+  // Infant (use 100+ keys)
+  100: { label:'0–1 Month', emoji:'👶', babyText:'Newborn can see about 8–12 inches — exactly the distance to your face while feeding. Responds to voices, especially parents\'. Sleeps 16–20 hours/day in 2–3 hour stretches. Strong grip and rooting reflexes.', wow:'Your newborn prefers your face above all other visual stimuli — you are literally their whole world.', tags:['Recognizes parents\' voice','Strong grip reflex','Sleeps ~18 hrs/day'] },
+  101: { label:'1–2 Months', emoji:'😊', babyText:'Social smiling appears — baby smiles in response to your face and voice. Tracks moving objects with eyes. Begins to vocalize (cooing). Gains about 1 oz/day. Head still needs support.', wow:'The first real smile is one of the most powerful moments in early parenting — it\'s the beginning of true social bonding.', tags:['First social smiles','Cooing starts','Tracks objects'] },
+  102: { label:'2–3 Months', emoji:'🗣️', babyText:'Baby is discovering their hands — stares at them, bats at objects. Laughing begins. Sleep may consolidate slightly into longer stretches. Tummy time is critical for neck strength.', wow:'Laughter begins around 3 months — once it starts, it becomes one of the most rewarding sounds you\'ll ever hear.', tags:['Hands discovered','First laughs','Tummy time important'] },
+  103: { label:'3–6 Months', emoji:'🎯', babyText:'Baby rolls over (front to back first, then back to front). Reaches for and grasps objects intentionally. Babbles with consonant sounds (ba, da, ma). Solid foods may begin at 6 months. Sleep regression is common at 4 months.', wow:'The 4-month sleep regression is real and exhausting — but it\'s a sign of major neurological development happening!', tags:['Rolling over','Intentional grasping','Babbling begins'] },
+  104: { label:'6–9 Months', emoji:'🤲', babyText:'Sitting without support. Passing objects between hands. Stranger anxiety appears. "Mama" and "dada" sounds (not yet with meaning). Solid foods expanding. Pincer grasp developing.', wow:'Stranger anxiety is actually a developmental milestone — it means baby understands that you are special and irreplaceable!', tags:['Sitting unassisted','Stranger anxiety','First solid foods'] },
+  105: { label:'9–12 Months', emoji:'🚶', babyText:'Pulling to stand, cruising along furniture, possibly first steps. First words with meaning ("mama", "dada"). Understands "no". Waves bye-bye. Separation anxiety peaks. Pincer grasp refined — picks up tiny objects.', wow:'First steps usually happen between 9–12 months, but anywhere from 9–18 months is completely normal!', tags:['Pulling to stand','First words','Separation anxiety peaks'] },
+};
+
+const learnData = [
+  {
+    icon: '🏥',
+    title: 'What to Expect at Birth',
+    badge: true,
+    content: `
+    <p>Understanding labor before it begins is one of the most powerful things you can do to feel calm and in control. Labor is not a single event — it's a series of distinct phases, each with its own characteristics, timeline, and experience.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">The Latent Phase (Pre-Labor)</h4>
+    <p>Before active labor begins, your body does significant preparation work. Your cervix — which is typically 3.5 to 4 centimeters long and tightly closed — begins to efface (thin and shorten) and dilate (open). You may feel irregular contractions, pelvic pressure, a lower backache, and a general sense that something is shifting. The mucus plug that has sealed your cervix throughout pregnancy may pass as a thick, slightly bloody discharge called a "bloody show." This can happen days before labor or right at its start.</p>
+    <p>The latent phase can last anywhere from a few hours to a few days, particularly for first-time parents. This is exhausting to hear, but it's also normal. Your uterus is doing real work even when contractions feel irregular and mild. During this phase, the best advice is to rest if it's nighttime, stay active if it's daytime, eat lightly, and stay hydrated. Don't rush to the hospital — most providers want you to wait until contractions are more consistent.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Stage 1: Early Labor (0–6 cm dilation)</h4>
+    <p>Early labor begins when contractions become regular and progressively stronger — typically every 5–20 minutes, lasting 30–60 seconds. Your cervix dilates from 0 to about 6 centimeters. For first-time parents, this phase alone can last 6–12 hours. The contractions are uncomfortable but manageable. Walking, a warm bath or shower, gentle movement, and distraction help enormously. This is the phase to stay home. Hospitals typically don't admit until active labor is established.</p>
+    <p>The classic guideline is the <strong>5-1-1 rule</strong>: head to the hospital when contractions are 5 minutes apart, lasting at least 1 minute each, consistently for at least 1 hour. If your water breaks at any point, call your provider immediately — this changes the timing considerations regardless of where you are in labor.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Stage 1: Active Labor (6–10 cm dilation)</h4>
+    <p>This is when labor becomes unmistakably intense. Contractions are every 3–5 minutes, lasting 45–60 seconds, and are significantly stronger. Your cervix dilates from 6 to 10 centimeters. This stage typically lasts 4–8 hours for first-time parents, often shorter for subsequent births. You will need focused coping — this is not the time to try to chat through contractions. Breathing techniques, a birthing ball, counter-pressure on the lower back, hydrotherapy, and position changes all help. If you want an epidural, active labor is when to ask for it — once you reach transition, it may be too late.</p>
+    <p>The transition phase (8–10 cm) is the most intense part of labor. Contractions come every 2–3 minutes and last up to 90 seconds, with very little break in between. Many people experience shaking, nausea, and a strong urge to push before being fully dilated. The good news: transition is also typically the shortest phase, often just 15–60 minutes.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Stage 2: Pushing and Birth</h4>
+    <p>Once fully dilated (10 cm), you enter the pushing stage. You'll feel an overwhelming urge to bear down with each contraction — many describe it as similar to the pressure of a bowel movement. Your care team will coach you through breathing and pushing. The pushing stage typically lasts 30 minutes to 2 hours for first-time parents, often 15–45 minutes for subsequent births. As baby descends, crowning occurs when the head becomes visible. Your provider will guide your breathing through this moment to allow a gentle, controlled delivery and reduce tearing.</p>
+    <p>Immediately after birth, your baby will be placed on your chest for skin-to-skin contact. The umbilical cord may be delayed-clamped (waiting 30–60 seconds) before being cut — a practice supported by research for better iron stores. Your baby will receive an Apgar score at 1 and 5 minutes, rating heart rate, breathing, muscle tone, reflexes, and color.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Stage 3: Delivering the Placenta</h4>
+    <p>After your baby arrives, the third stage involves delivering the placenta — usually within 5–30 minutes. You'll feel mild contractions and may be asked to push gently. Your provider may administer Pitocin (synthetic oxytocin) to encourage uterine contractions and minimize blood loss. Tearing of the perineum is common, particularly with first births — your provider will assess and repair any tears, which heal well with proper care.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Pain Management Options</h4>
+    <ul>
+      <li><strong>Epidural:</strong> The most effective option for pain relief. A catheter is placed in the epidural space of your lower back, delivering continuous medication. You remain awake and alert. Works for both vaginal births and C-sections. Request it during active labor — not too early, not during transition.</li>
+      <li><strong>IV or IM opioids:</strong> Can take the edge off but don't eliminate pain. May cause drowsiness and can affect baby's breathing if given too close to delivery.</li>
+      <li><strong>Nitrous oxide:</strong> Available at many birth centers. Reduces anxiety and takes the edge off pain without eliminating it. You breathe it yourself during contractions.</li>
+      <li><strong>Unmedicated coping:</strong> Hydrotherapy (laboring in water), counter-pressure, position changes, TENS units, breathing techniques, and doula support can be remarkably effective, especially in early and active labor.</li>
+    </ul>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Building Your Birth Plan</h4>
+    <p>A birth plan is not a contract — it's a communication tool. It tells your care team your preferences for labor support, pain management, interventions, cord clamping, skin-to-skin contact, feeding intentions, and what matters most to you. Keep it to one page. Share it with your provider before labor, and bring printed copies to the hospital. The most important thing it communicates is that you've thought about this and want to be involved in decisions — good providers will respect that.</p>
+    `
+  },
+  {
+    icon: '🤱',
+    title: 'Breastfeeding: A Complete Guide',
+    badge: true,
+    content: `
+    <p>Breastfeeding is one of the most natural things in the world — and also one of the things new parents most often struggle with. The reason isn't that something is wrong with you or your baby; it's that both of you are learning an entirely new skill simultaneously, often while sleep-deprived and emotionally overwhelmed. The research on breastfeeding benefits is substantial, but so is the research showing that a fed, loved baby thrives — however they're fed.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">The First Hours: Colostrum and the Golden Hour</h4>
+    <p>In the first days after birth, your breasts produce colostrum — a thick, golden, nutrient-dense fluid that is sometimes called "liquid gold" for good reason. It's packed with immunoglobulins (antibodies), white blood cells, proteins, and growth factors. Your baby's stomach at birth is the size of a marble (~5-7ml), so the small quantities of colostrum are perfectly matched to what they need. A newborn doesn't need large volumes — they need the concentrated immune protection colostrum provides.</p>
+    <p>The "golden hour" — uninterrupted skin-to-skin contact immediately after birth — is one of the most powerful things you can do for breastfeeding success. It activates baby's rooting reflex and feeding instincts, regulates their temperature and heart rate, and establishes early bonding. Studies show that babies given uninterrupted skin-to-skin time in the first hour are significantly more likely to latch effectively.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">How Milk Production Works</h4>
+    <p>Mature milk typically comes in between days 3–5 postpartum. Before that, you have colostrum transitioning to transitional milk. The timing can feel alarming — your baby seems hungry, your breasts don't feel "full," and you may question whether you have enough. This is almost universally the most difficult period. The single most important thing you can do to establish supply is feed frequently — 8–12 times in 24 hours. Milk production is entirely supply-and-demand: the more the breast is emptied, the more milk is produced.</p>
+    <p>Prolactin (the hormone that drives milk production) surges after each feeding and is highest in the early morning hours — which is why night feeds are particularly important for supply establishment. Oxytocin (the letdown hormone) is released when baby latches and causes the milk-release reflex. Stress, pain, and anxiety can inhibit oxytocin — which is why creating a calm environment for feeding helps.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Getting the Latch Right</h4>
+    <p>A proper latch is the foundation of comfortable, effective breastfeeding. A poor latch causes sore nipples and reduces milk transfer. The key is that baby should latch onto the breast — not just the nipple. Baby's mouth needs to take in a significant portion of the areola so their tongue and lower jaw can massage the milk ducts beneath it.</p>
+    <p><strong>Signs of a good latch:</strong> Baby's mouth is wide open (like a yawn), lips are flanged outward (not tucked in), chin is pressed into the breast, nose is clear, cheeks are full and rounded (not hollowed), you can hear regular swallowing, and after the initial few seconds of latching, there is no significant pain.</p>
+    <p><strong>If it hurts:</strong> Persistent nipple pain is not normal and is always a sign that something needs adjusting. Break the latch by inserting a clean finger into the corner of baby's mouth, then try again. Common latch issues include baby only latching the nipple tip, lips not flanged, and head position causing an angle. A lactation consultant (IBCLC) can identify and fix most latch issues in a single session. Most insurance covers LC visits — use them.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Feeding Positions</h4>
+    <ul>
+      <li><strong>Cradle hold:</strong> Most common. Baby's head rests in the crook of your elbow, body along your forearm. Best once latch is established.</li>
+      <li><strong>Cross-cradle hold:</strong> Your opposite hand supports baby's head and neck, giving you maximum control over positioning. Best for newborns and latch difficulties.</li>
+      <li><strong>Football hold:</strong> Baby's body is tucked under your arm like a football, facing up. Excellent for C-section recovery (nothing presses on your incision), large breasts, and flat/inverted nipples.</li>
+      <li><strong>Side-lying:</strong> Both you and baby lie on your sides facing each other. Ideal for night feeds and recovery. More comfortable once breastfeeding is established.</li>
+      <li><strong>Laid-back/biological nurturing:</strong> You recline at an angle, baby lies on your chest. Gravity helps baby stay in position and activates feeding instincts. Very effective for newborns and oversupply situations.</li>
+    </ul>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">How Often and How Long</h4>
+    <p>Newborns feed 8–12 times in 24 hours — roughly every 2–3 hours, though this varies. Feed on demand rather than on a schedule. Early hunger cues are rooting, sucking on hands, and turning the head side to side. Crying is a late hunger cue and makes latching harder. A feeding session typically lasts 10–20 minutes per breast, though some babies are efficient feeders (5–10 minutes) and some are slow (30+ minutes). Let baby finish one breast fully before offering the second — the hindmilk (higher fat content) comes at the end of a feeding and is important for satiety and weight gain.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Common Challenges</h4>
+    <ul>
+      <li><strong>Engorgement:</strong> Breasts become hard, swollen, and painful when milk first comes in (days 3–5). Feed frequently, apply warm compresses before feeding and cold compresses after, and hand-express a little to soften the areola before latching. Usually resolves in 24–48 hours.</li>
+      <li><strong>Mastitis:</strong> A breast infection causing flu-like symptoms (fever, chills, body aches) alongside a hard, red, painful area on the breast. Continue breastfeeding or pumping on the affected side — stopping makes it worse. See a doctor promptly for antibiotics.</li>
+      <li><strong>Nipple pain beyond the first 2 weeks:</strong> Often caused by a poor latch, but can also indicate thrush (yeast infection — white patches in baby's mouth, deep breast pain after feeds) or tongue-tie (restricted frenulum reducing baby's ability to latch deeply). Both are treatable — seek an IBCLC.</li>
+      <li><strong>Perceived low supply:</strong> Most parents who worry they have low supply actually have enough. True low supply is less common. Signs baby IS getting enough: 6+ wet diapers/day after day 5, regular bowel movements, steady weight gain (losing up to 7–10% in the first week is normal; should regain birth weight by 2 weeks).</li>
+    </ul>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Pumping and Bottle Introduction</h4>
+    <p>If you plan to return to work or want flexibility, pumping is essential. Establish breastfeeding first (usually 3–4 weeks) before introducing a bottle to avoid nipple confusion, though many babies transition smoothly. Introduce a bottle around weeks 3–6 — waiting too long (past 8 weeks) can make refusal more likely. Check your insurance — the ACA requires coverage of a breast pump at no cost. Double electric pumps significantly outperform single pumps for efficiency and supply maintenance.</p>
+    `
+  },
+  {
+    icon: '😴',
+    title: 'Newborn Sleep: The Science and the Reality',
+    badge: true,
+    content: `
+    <p>Newborn sleep is one of the most discussed, most worried-about aspects of early parenthood — and also one of the most misunderstood. The unrealistic cultural expectation that babies should sleep through the night quickly causes enormous parental anxiety and can lead to practices that work against both safety and development. Understanding what newborn sleep actually is, biologically, is the foundation of surviving it.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">What Newborn Sleep Actually Looks Like</h4>
+    <p>Newborns sleep 14–17 hours per day — but in fragmented cycles of 50–60 minutes, compared to an adult's 90-minute cycle. They spend roughly 50% of their sleep in REM (active sleep), compared to about 20% for adults. This is not a design flaw — it's a feature. REM sleep is when the brain consolidates learning, grows neural connections, and processes sensory information. A newborn's brain is undergoing the most rapid development of a human lifetime, and REM sleep is the mechanism.</p>
+    <p>During REM sleep, babies twitch, make sounds, flutter their eyes, and appear to rouse — this is all normal and does NOT mean they need intervention. Many parents wake a sleeping baby by responding to these normal REM movements. Learning to wait 10–15 seconds before responding can dramatically reduce unnecessary wake-ups.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Safe Sleep: ABC — Every Sleep, Every Time</h4>
+    <p>The American Academy of Pediatrics safe sleep guidelines are clear and evidence-based. They reduce the risk of Sudden Infant Death Syndrome (SIDS) and sleep-related infant deaths:</p>
+    <ul>
+      <li><strong>Alone:</strong> Baby sleeps in their own sleep space — no bed-sharing with adults, no siblings, no pets. No pillows, blankets, bumpers, positioners, or soft toys in the sleep area.</li>
+      <li><strong>Back:</strong> Always placed on their back for every sleep until age 1. Once baby can roll both ways independently, you can let them find their own position — but always start them on their back.</li>
+      <li><strong>Crib:</strong> A firm, flat, separate sleep surface. This can be a crib, bassinet, or play yard that meets current safety standards. The mattress should be firm — no memory foam — with only a tight-fitting sheet.</li>
+    </ul>
+    <p>Room-sharing (but not bed-sharing) for at least the first 6 months is recommended and reduces SIDS risk by up to 50%. A bedside bassinet makes night feeds far more manageable while keeping baby in their own safe space.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">The 4-Month Sleep Regression</h4>
+    <p>Around 3.5–4 months, something significant and permanent happens: baby's sleep architecture matures. Their sleep cycles shift from newborn-style sleep to cycles that more closely resemble adult sleep, with distinct light and deep phases. This means they now experience a full arousal between sleep cycles — and if they don't know how to put themselves back to sleep, they wake and cry.</p>
+    <p>The 4-month regression is not a phase that passes — it's a permanent neurological change. Babies who were previously good sleepers often become dramatically worse. The only real solution is helping them learn independent sleep skills, which most approaches recommend waiting until 4–6 months to address formally.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Sleep Associations and Independent Sleep</h4>
+    <p>A sleep association is whatever condition was present when baby fell asleep. If baby falls asleep nursing, being rocked, or with a pacifier, they'll expect those conditions to be recreated when they rouse between sleep cycles at night. This is the origin of most night-waking beyond the 4-month mark. It's not a sign of a problem — it's a very logical, learned behavior.</p>
+    <p>Teaching independent sleep (often called sleep training) involves helping baby fall asleep in their crib, without the sleep association. The research on sleep training is clear: when done at the appropriate age (4–6 months minimum) and with responsive approaches, it is safe and does not cause harm to the parent-child attachment relationship. Multiple meta-analyses have found no long-term negative effects on emotional, behavioral, or developmental outcomes.</p>
+    <p>Popular approaches include: <strong>Ferber (graduated extinction)</strong> — check-ins at increasing intervals; <strong>Chair method</strong> — parent sits in the room, gradually moving farther away; <strong>Extinction (Weissbluth)</strong> — place baby down awake and don't return; <strong>Fading</strong> — gradually reduce the sleep association over time. No approach is universally superior — the best one is the one both parents can implement consistently.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">White Noise: The Science</h4>
+    <p>White noise works by masking ambient sounds that cause arousal, and by mimicking the constant whooshing sound of blood flow in the womb, which babies heard continuously for 9 months. It's one of the most consistently effective sleep tools available. Use a dedicated machine rather than a phone (phones run out of battery and have inconsistent volume). Volume should be moderate — similar to a shower (~65 dB or less). Turn it on for every sleep, not just when noise is an issue.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Wake Windows: The Key to Good Naps</h4>
+    <p>Overtiredness is one of the most common causes of poor sleep — an overtired baby produces excess cortisol that makes it harder to fall and stay asleep. Wake windows (the amount of time baby is awake between sleeps) are a more reliable guide than a clock-based schedule in the early months. General guidelines: 0–8 weeks: 45–60 minute wake windows; 2–4 months: 1–1.5 hours; 4–6 months: 1.5–2 hours; 6–9 months: 2–3 hours; 9–12 months: 3–4 hours.</p>
+    `
+  },
+  {
+    icon: '👶',
+    title: 'Newborn Care: Everything You Need to Know',
+    badge: false,
+    content: `
+    <p>Newborns are simultaneously more resilient and more delicate than you expect. They don't come with instructions, but the basics of newborn care are learnable — and most of it becomes second nature within weeks. Here's what actually matters in the first weeks at home.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">The Umbilical Cord Stump</h4>
+    <p>The umbilical cord stump typically falls off between 1–3 weeks after birth. Keep it dry and clean — fold diapers down to avoid covering it. Sponge baths only until it falls off (no submersion). If the area around the stump becomes red, swollen, or has a foul odor, contact your pediatrician — this can indicate infection. A small amount of dried blood when it falls off is normal.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Diapering: What to Expect</h4>
+    <p>In the first days, baby passes meconium — a dark, tar-like substance that was accumulating in their intestines during pregnancy. It's completely normal and should fully clear within 2–3 days. After that, breastfed babies typically have mustard-yellow, seedy, loose stools. Formula-fed babies have firmer, tan or yellow-brown stools. Both are normal. A breastfed newborn may pass stool with every feeding (up to 10 times/day) or once every few days — both are within normal range.</p>
+    <p>Wet diaper count is the most reliable indicator of adequate feeding: 1–2 wet diapers on day 1, increasing to 6+ wet diapers per day by day 5–6. Count heavy diapers — a wet diaper should feel noticeably heavy, not just slightly damp.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Bathing a Newborn</h4>
+    <p>Sponge baths only until the umbilical cord stump falls off and (if applicable) circumcision is healed. After that, 2–3 tub baths per week is sufficient — newborns don't get dirty in the conventional sense. Use warm water (test it with your elbow — it should feel comfortably warm, not hot) and fragrance-free, tear-free baby soap. Support baby's head at all times. A wet newborn is remarkably slippery — the "wet baby" lesson is one most parents learn quickly. Keep everything you need within arm's reach before you begin.</p>
+    <p>Don't over-bathe — newborn skin is naturally dry and bathing too frequently strips its protective oils. Between baths, simply wipe baby's face, neck folds (where milk accumulates), diaper area, and any visible creases with a warm, damp cloth.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Nail Care</h4>
+    <p>Newborn nails are paper-thin and sharp — and babies scratch their faces constantly with the Moro (startle) reflex. Options: use a fine emery board (safest for newborns), baby nail scissors with rounded tips, or baby nail clippers. Many parents find it easiest to file or clip while baby is in deep sleep. Mittens can be used temporarily but limit the sensory exploration that's important for development — use them sparingly.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Swaddling</h4>
+    <p>Swaddling reduces the Moro reflex that startles babies awake and mimics the snug containment of the womb. When done correctly, it can dramatically improve sleep in the first weeks. The key is: arms tucked in snugly, but hips and knees must be able to bend and flex freely — tight swaddling around the hips can cause hip dysplasia. Use breathable muslin fabric or a velcro/zipper swaddle wrap. Stop swaddling as soon as baby shows any signs of attempting to roll — typically around 2–3 months. At that point, transition to a sleep sack.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Tummy Time</h4>
+    <p>Tummy time is essential for developing the neck, shoulder, and core strength baby needs to roll, sit, and eventually crawl. Start from day one — even 2–3 minutes a few times per day on a firm, flat surface counts. Build up gradually. Most babies dislike it initially; this is normal. Always supervise tummy time and never leave baby unattended on their stomach. A rolled towel under the chest can help in early weeks. Tummy time does not count sleep time — it's only while baby is awake and supervised.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">When to Call the Pediatrician</h4>
+    <p>Some things always warrant a prompt call: rectal temperature of 100.4°F (38°C) or higher in a baby under 2 months (this is a medical emergency — go to the ER); yellow skin/eyes that appears or worsens after day 3 (jaundice); fewer than 6 wet diapers by day 6; baby is difficult to wake or unusually lethargic; significant difficulty breathing. When in doubt, call. No pediatrician minds a worried new parent calling — that's what they're there for.</p>
+    `
+  },
+  {
+    icon: '💛',
+    title: 'Postpartum Recovery & the Fourth Trimester',
+    badge: true,
+    content: `
+    <p>The "fourth trimester" is the 12 weeks after birth — a period that Western culture significantly underinvests in. Your body has just completed one of the most physically demanding events in human experience. Your hormones are in free-fall. You're caring for a new human while sleep-deprived, and the world largely expects you to be "back to normal" within weeks. Understanding what is actually happening physically and emotionally — and what you need — is critical.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Physical Recovery: What's Normal</h4>
+    <p><strong>Lochia:</strong> Postpartum vaginal discharge (lochia) is normal and expected for 4–6 weeks. It begins as heavy, bright red bleeding similar to a heavy period, gradually lightening to pink, then brown, then yellow-white. Passing clots smaller than a golf ball is normal in the first few days. Larger clots, soaking through a pad in an hour, or sudden heavy bright-red bleeding after it had been lightening are reasons to contact your provider.</p>
+    <p><strong>Afterpains:</strong> Uterine cramping as the uterus contracts back to its pre-pregnancy size is normal and often more intense with subsequent births. Cramping is typically strongest during breastfeeding (oxytocin causes uterine contractions). Ibuprofen, if approved by your provider, is effective.</p>
+    <p><strong>Perineal healing:</strong> If you had a vaginal birth, the perineum needs time to heal whether or not you had a tear or episiotomy. Cold packs (wrapped in a cloth) in the first 24 hours reduce swelling. A peri bottle (a squeeze bottle of warm water) during and after urination provides enormous relief. Witch hazel pads (Tucks) are soothing. Sitz baths accelerate healing. Avoid sitting for long periods without support, and consider a donut pillow.</p>
+    <p><strong>C-section recovery:</strong> A cesarean is major abdominal surgery — recovery takes longer and requires more restriction. Avoid lifting anything heavier than your baby for 4–6 weeks. Keep the incision clean and dry. Watch for signs of infection: increasing redness, swelling, warmth, discharge, or fever. The internal healing takes much longer than the external scar's appearance suggests.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">The Hormone Cliff</h4>
+    <p>At delivery, estrogen and progesterone levels plummet precipitously — among the most dramatic hormonal shifts a human body experiences. This hormonal free-fall is the direct cause of the "baby blues" that affect 70–80% of new mothers in the first 2 weeks. Symptoms include tearfulness, mood swings, irritability, and anxiety that seem disproportionate to the circumstances. This is physiological, not psychological. Baby blues typically peak around day 3–5 and resolve by 2 weeks. No treatment is needed — time, rest, and support are the remedies.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Postpartum Depression and Anxiety</h4>
+    <p>Postpartum depression (PPD) is not baby blues that didn't go away — it's a distinct clinical condition affecting approximately 1 in 5 new mothers (and about 1 in 10 new fathers). Symptoms include persistent sadness or emptiness, inability to feel joy or bond with baby, overwhelming anxiety, difficulty sleeping even when baby sleeps, intrusive thoughts, and feeling like a failure as a parent. PPD is not a character flaw, not a failure of love, and not permanent. It is highly treatable with therapy, medication, or both.</p>
+    <p>Postpartum anxiety (PPA) is equally common but less discussed — characterized by constant, excessive worry about baby's health or safety, hypervigilance, racing thoughts, difficulty relaxing, and sometimes physical symptoms like heart pounding or difficulty breathing. PPA can exist independently of PPD. Both deserve treatment.</p>
+    <p>Postpartum psychosis is rare (1–2 per 1000 births) but a medical emergency — characterized by hallucinations, delusions, rapid mood swings, and confusion. If you or someone you know experiences these symptoms after childbirth, call emergency services immediately.</p>
+    <p>The Edinburgh Postnatal Depression Scale (EPDS) is a validated 10-question screening tool — ask your provider to administer it at your 6-week postpartum visit, or find it online. Don't wait until you feel terrible to ask for help.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Pelvic Floor Recovery</h4>
+    <p>The pelvic floor muscles support the bladder, bowel, and uterus. Pregnancy and delivery — whether vaginal or cesarean — stress these muscles significantly. Symptoms of pelvic floor dysfunction include leaking urine when coughing, sneezing, or jumping; a heavy or dragging sensation in the pelvis; pelvic pain; and pain during intercourse when you resume it. These symptoms are common but not normal in the sense of being untreatable. Pelvic floor physical therapy is remarkably effective — seek a referral at your 6-week visit (or earlier if symptoms are significant). Many insurance plans cover it.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Practical Postpartum Survival</h4>
+    <ul>
+      <li><strong>Accept every offer of help.</strong> People want to help. Let them. Assign specific tasks: drop off a meal, hold the baby while you shower, do a load of laundry. "We're fine" is the most costly phrase in new parenthood.</li>
+      <li><strong>Sleep matters more than housework.</strong> The house can wait. Sleep when baby sleeps is exhausting advice, but it's correct. Short sleep in the early weeks has measurable effects on physical recovery and emotional regulation.</li>
+      <li><strong>Partners: this applies to you too.</strong> Postpartum support is not just practical — it's emotional. Be present, be patient, take night shifts, and watch for signs of PPD in yourself and your partner without waiting to be asked.</li>
+      <li><strong>The 6-week postpartum visit is inadequate.</strong> Advocate for a visit at 2–3 weeks as well. The American College of Obstetricians and Gynecologists recommends ongoing postpartum care as a process, not a single visit.</li>
+    </ul>
+    `
+  },
+  {
+    icon: '📈',
+    title: 'Baby Developmental Milestones (0–12 months)',
+    badge: false,
+    content: `
+    <p>Developmental milestones are descriptions of skills and behaviors that most babies achieve within a certain age range. They are not deadlines. The ranges exist because development is genuinely variable — influenced by temperament, environment, birth order, prematurity, and individual biology. The goal of tracking milestones is to celebrate development and identify potential concerns early — not to rank babies against each other.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">0–2 Months: The Newborn Stage</h4>
+    <p>Newborns arrive with a set of primitive reflexes — rooting, sucking, Moro (startle), palmar grasp — that are neurological signs of a healthy nervous system and gradually fade as the cortex matures. From day one, babies prefer faces (especially their primary caregivers') over any other visual stimulus, and recognize their parents' voices — particularly their mother's — from birth. They can see about 8–12 inches, precisely the distance to a face during feeding.</p>
+    <p>The first social smile appears between 4–8 weeks and is one of the most rewarding moments of early parenthood. This is distinct from the reflexive "gas smiles" of the newborn period — a social smile is a direct response to your face or voice, and it marks the beginning of intentional social communication. Cooing (melodic vowel sounds) begins around 6–8 weeks.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">2–4 Months: Discovery and Interaction</h4>
+    <p>Between 2 and 4 months, baby becomes dramatically more interactive. They track moving objects with their eyes, respond to voices by turning toward the sound, and begin making consonant sounds (cooing, gurgling). Laughter emerges around 3–4 months. Tummy time progress accelerates — by 3 months, most babies can hold their head steady and lift their chest slightly; by 4 months, they can push up onto extended arms.</p>
+    <p>At around 3 months, babies discover their hands — they'll stare at them, bat at objects, and attempt to bring things to their mouth (mouthing everything is how they learn about the world). By 4 months, reaching for objects with both hands and passing objects between hands develops. This is also when the 4-month sleep regression typically hits.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">4–6 Months: Moving and Babbling</h4>
+    <p>Rolling begins — usually front to back first, then back to front. By 6 months, most babies can roll in both directions. Sitting with support (by 4 months) and without support (by 6–7 months) develops progressively. Babbling — consonant-vowel combinations like "ba," "da," "ma" — begins around 4–6 months and is a critical language precursor; the more you respond to babble as if it's a real conversation, the more you accelerate language development.</p>
+    <p>Solid food introduction typically begins around 6 months when baby shows readiness signs: sitting with minimal support, having lost the tongue-thrust reflex (automatically pushing things out of the mouth), and showing interest in food. The World Health Organization and AAP recommend exclusive breastfeeding for 6 months before introducing solids, though the 4–6 month window is acceptable if developmental readiness is present.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">6–9 Months: Mobility and Connection</h4>
+    <p>Between 6 and 9 months, baby becomes mobile — crawling (typically 7–10 months, though some babies skip it entirely and go directly to walking, which is normal), pulling to stand along furniture, and cruising. Object permanence develops around 7–8 months — baby understands that things continue to exist when out of sight. This is why peek-a-boo transitions from slightly confusing to absolutely delightful at this age.</p>
+    <p>Stranger anxiety and separation anxiety emerge around 7–9 months — both are signs of healthy attachment and cognitive development, not regression. Baby is correctly identifying primary caregivers as special and different from everyone else, and correctly understanding that separation from them is significant. While exhausting for parents, it is developmentally appropriate.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">9–12 Months: Words and Walking</h4>
+    <p>The pincer grasp (picking up small objects between thumb and forefinger) develops around 9–10 months and is a significant fine motor milestone that enables self-feeding. First meaningful words — "mama" or "dada" used with intent — typically emerge between 10–14 months. At 9 months, most babies understand significantly more language than they can produce — they follow simple instructions like "no" and "come here," point to indicate interest, and wave goodbye.</p>
+    <p>First independent steps typically occur between 9–12 months, but the normal range extends to 18 months. Walking late (up to 18 months) in a baby who is otherwise developing normally is rarely cause for concern. Early walkers (9 months) and late walkers (16–18 months) both fall within the normal range.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Red Flags to Discuss with Your Pediatrician</h4>
+    <p>These always warrant a conversation — not to cause alarm, but because early identification leads to early intervention, which makes a significant difference:</p>
+    <ul>
+      <li>No social smiling by 3 months</li>
+      <li>Doesn't make eye contact or respond to caregiver faces by 3 months</li>
+      <li>No babbling by 6 months</li>
+      <li>Doesn't respond to their name by 9 months</li>
+      <li>No gesturing (pointing, waving) by 12 months</li>
+      <li>No single words with meaning by 12–16 months</li>
+      <li>Any loss of previously acquired skills at any age — this is always a red flag</li>
+    </ul>
+    `
+  },
+  {
+    icon: '🧠',
+    title: "Stimulating Your Baby's Brain: The First Year",
+    badge: true,
+    content: `
+    <p>The first year of life is the most extraordinary period of brain development in human existence. At birth, baby has approximately 100 billion neurons — the same number as an adult. What happens in the first year isn't the addition of new neurons but the formation of connections between them: synapses that wire the brain for language, emotion regulation, movement, and cognition. By age one, the brain has doubled in size and contains more synaptic connections per neuron than at any other point in life.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Serve and Return: The Most Important Concept in Early Development</h4>
+    <p>Harvard's Center on the Developing Child describes "serve and return" as the fundamental mechanism of brain development. When baby makes a sound, a facial expression, or a gesture (the "serve"), and a caregiver responds with eye contact, words, or touch (the "return"), a neural connection is formed. This back-and-forth interaction — responding, mimicking, describing, and then waiting — builds more neural connections per unit time than almost any other activity.</p>
+    <p>You cannot over-respond to your baby in the first year. Attachment theory research shows that consistently responding to baby's cues does not spoil them — it builds the secure attachment that underpins all future development, emotional regulation, and even physical health. The concept of "spoiling" simply does not apply in the first year of life.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Language: Start From Day One</h4>
+    <p>Babies are learning language long before they can produce it. A landmark study by researchers Hart and Risley found that the number of words a child hears in the first three years of life directly predicts vocabulary size at age 3, reading ability at age 8, and academic performance throughout school. The differences between the highest and lowest groups were staggering — some children heard millions fewer words.</p>
+    <p>This doesn't mean you need to perform or lecture. Narrating your day in a natural, conversational way is exactly right: "We're putting on your socks now — this one is blue. Does that feel cozy? Now the other foot..." This "parentese" (slightly higher pitch, slower pace, exaggerated intonation) is instinctive and research-validated as optimal for language acquisition. Asking questions, even when baby can't answer, trains conversational turn-taking.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Reading Aloud: Earlier Than You Think</h4>
+    <p>Reading to babies from day one is supported by the American Academy of Pediatrics and a robust research base. Early book exposure isn't about comprehension — it's about rhythm, language patterns, vocabulary exposure, and the powerful association of your voice with comfort and learning. By 4 months, babies are interested in high-contrast patterns and simple pictures. By 6–8 months, they reach for books. By 12 months, they have favorite books and can help turn pages.</p>
+    <p>Board books, cloth books, and bath books are ideal for infants — they can be mouthed, thrown, and chewed without consequence. Reading the same books repeatedly is not only okay but beneficial — repetition is how young brains consolidate learning. Don't worry about reading "correctly" — describing the pictures, making sounds, and responding to baby's reactions counts.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Play: What It Is and Why It Matters</h4>
+    <p>Play in the first year isn't about toys — it's about interaction. The most developmentally valuable "toy" for a newborn is a caregiver's face. For a 3-month-old, it's a high-contrast mobile. For a 6-month-old, it's a wooden spoon and a pot. Expensive educational toys are not necessary and are often inferior to simple, open-ended objects that require imagination and interaction.</p>
+    <p>Tummy time, which most babies dislike, is simultaneously the most important play activity of the first months — building the physical foundation for rolling, sitting, crawling, and walking, while developing spatial awareness and visual tracking. Make it interesting: get down on your baby's level, use mirrors, place interesting objects just out of reach, and build up time gradually from 2–3 minutes per session to longer stretches.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Music and Movement</h4>
+    <p>Music activates more areas of the brain simultaneously than almost any other stimulus — motor, auditory, emotional, language, and memory regions all engage during musical experience. Singing to your baby (in any voice, at any pitch) is one of the most research-supported activities for early brain development. Nursery rhymes, with their repetitive rhythms and predictable patterns, are specifically well-suited to how infant brains process and store information.</p>
+    <p>Physical movement — being carried, rocked, danced with, and gently bounced — activates the vestibular system (balance and spatial orientation) and contributes to motor development and emotional regulation. Babies who are carried more cry less — the vestibular stimulation is inherently calming.</p>
+
+    <h4 style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--grove);margin:16px 0 6px;">Screens: The Evidence</h4>
+    <p>The American Academy of Pediatrics recommends no screen media for children under 18 months, with the exception of video calls with family members (which involve real social interaction). The reason isn't moral — it's neurological. Infant brains learn from contingent interaction — from responses that happen because of what they do. Screens are non-contingent: they do the same thing regardless of what baby does. Attention directed at a screen is attention not directed at a caregiver or the physical world, from which far more learning occurs.</p>
+    <p>Video calls are genuinely different — they involve a real person responding to baby's specific sounds and expressions in real time. From around 6 months, many babies can recognize and respond to grandparents over video call, and this form of screen time supports rather than replaces human connection.</p>
+    `
+  },
+];
+
+
+// ── Per-week milestone checklists ─────────────────────────
+const milestonesByWeek = {
+  4:  [`Take a pregnancy test to confirm`,`Start folic acid / prenatal vitamins immediately`,`Schedule your first OB or midwife appointment`,`Avoid alcohol, raw fish, and high-mercury fish from today`,`Note the first day of your last period for dating`],
+  5:  [`Call your OB to book your first prenatal visit`,`Begin prenatal vitamins with at least 400mcg folic acid`,`Cut caffeine to under 200mg/day (~1 small coffee)`,`Tell your employer about pregnancy rights (when ready)`,`Start a pregnancy journal — note how you feel this week`],
+  6:  [`Confirm prenatal appointment is booked (weeks 8–10)`,`Ask about NIPT genetic screening options`,`Try ginger tea or crackers if morning sickness hits`,`Research OB vs. midwife vs. birthing center options`,`Look into your health insurance maternity coverage`],
+  7:  [`Continue prenatal vitamins daily`,`Note any food aversions — adjust diet as needed`,`Look into first trimester screening options`,`Stay hydrated — aim for 8–10 glasses of water/day`,`Consider telling a close support person`],
+  8:  [`First prenatal appointment this week or soon — confirm it`,`Prepare questions for your OB: genetic screening, lifestyle, symptoms`,`Ask about OB-recommended exercise for your situation`,`Review your health insurance maternity benefits in detail`,`If nausea is severe, ask about medication options (safe options exist)`],
+  9:  [`Review NIPT and nuchal translucency screening options`,`Ask your provider about chorionic villus sampling (CVS) if relevant`,`Start researching childbirth education classes`,`Consider telling your employer if you need accommodations`,`Update your emergency contacts`],
+  10: [`Book your NT scan for weeks 11–14`,`Research OB practices and hospitals in your area`,`Begin thinking about your birth preferences`,`Start or continue safe prenatal exercise routine`,`Schedule dental checkup — gum health matters during pregnancy`],
+  11: [`NT scan and first trimester blood work soon (if not done)`,`Research childcare options — waitlists can be 12+ months`,`Start telling family and friends if ready`,`Review maternity leave policy with HR`,`Look into cord blood banking options and decide`],
+  12: [`End of first trimester — major milestone!`,`Share your news — risk of miscarriage is now very low`,`Book your anatomy scan for around week 20`,`Start researching baby registries and essentials`,`Look into prenatal yoga or swimming classes`],
+  13: [`Start thinking about your birth plan`,`Research doula options if considering one`,`Begin shopping for comfortable maternity clothing`,`Book your anatomy scan if not done`,`Look into childbirth education classes — book early, they fill up`],
+  14: [`Begin pelvic floor exercises (Kegels) — start now, not later`,`Research glucose screening (scheduled around week 24–28)`,`Begin thinking about your maternity leave dates`,`Consider a babymoon trip while travel is still comfortable`,`Ask your OB about recommended weight gain for your situation`],
+  16: [`Schedule your anatomy scan (week 18–22 window)`,`Baby may start moving — start noticing flutters (quickening)`,`Research childcare or parental leave options`,`Consider investing in a pregnancy pillow now`,`Start thinking about the nursery — research furniture safety standards`],
+  18: [`Anatomy scan coming up — prepare your questions`,`Practice kick counts once movement is regular`,`Research car seat options — safety ratings matter`,`Begin or continue Kegel exercises daily`,`Consider a birth photography consultation if interested`],
+  20: [`Halfway milestone! Anatomy scan this week if not done`,`Discuss anatomy scan results with your provider`,`Start your baby registry`,`Begin serious nursery planning`,`Schedule glucose tolerance test for weeks 24–28`],
+  24: [`Schedule glucose tolerance test (24–28 weeks) if not done`,`Discuss gestational diabetes risk factors with provider`,`Begin tracking kick counts — 10 movements in 2 hours is the benchmark`,`Start childbirth education classes if not enrolled`,`Research hospital bag essentials and start gathering items`],
+  28: [`Third trimester begins! Schedule more frequent prenatal visits`,`Begin kick count tracking daily`,`Discuss Group B Strep test timing (weeks 35–37) with provider`,`Finalize childcare arrangements`,`Research newborn pediatrician options — interview 1–2 now`],
+  32: [`Tour your hospital or birthing center`,`Finalize your birth plan and share with your provider`,`Pre-register at your hospital (reduces paperwork during labor)`,`Arrange help for after delivery`,`Start packing your hospital bag`],
+  36: [`Hospital bag should be fully packed`,`Install infant car seat and get it inspected`,`Confirm pediatrician is chosen`,`Review signs of labor — know when to call your provider`,`Discuss cervical checks and birth preferences at your visit`],
+  38: [`Review your birth plan one final time`,`Confirm support persons availability and contact info`,`Know the 5-1-1 rule: contractions 5 min apart, 1 min long, for 1 hour`,`Stock the freezer with ready-to-eat meals`,`Rest as much as possible — the big day is near`],
+  40: [`You have reached your due date — baby may arrive any time!`,`Review signs of labor vs. Braxton Hicks`,`Know when to head to the hospital (5-1-1 rule)`,`Stay calm — only 5% of babies arrive on their exact due date`,`Focus on rest, hydration, and having support close by`],
+}
+
+function getMilestonesForWeek(week) {
+  // Find the closest week at or below current
+  const keys = Object.keys(milestonesByWeek).map(Number).sort((a,b)=>a-b);
+  let best = keys[0];
+  for (const k of keys) { if (k <= week) best = k; }
+  return milestonesByWeek[best];
+}
+
+function updateMilestoneChecklist(week) {
+  const container = document.getElementById('milestoneChecklist');
+  if (!container) return;
+  const items = getMilestonesForWeek(week);
+  container.innerHTML = items.map(text =>
+    `<div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">${text}</span></div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════════
+//  WEEK LOGIC
+// ══════════════════════════════════════════════
+
+let currentWeek = 8;
+
+function weekFromDueDate(dueDateStr) {
+  // Given a due date string (YYYY-MM-DD or Date), calculate current gestational week
+  const due = new Date(dueDateStr + (typeof dueDateStr === 'string' && dueDateStr.length === 10 ? 'T12:00:00' : ''));
+  const today = new Date(); today.setHours(12,0,0,0);
+  const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+  // Due date = week 40, so LMP = due - 280 days
+  const lmp = new Date(due.getTime() - 280 * 24 * 60 * 60 * 1000);
+  const weeksPregnant = Math.floor((today - lmp) / msPerWeek);
+  return Math.max(4, Math.min(40, weeksPregnant));
+}
+
+function syncWeekToDueDate() {
+  const dueDateVal = document.getElementById('transferDate') ? document.getElementById('transferDate').value : null;
+  // Use the calculated due date stored in a global if available
+  if (window._calculatedDueDate) {
+    currentWeek = weekFromDueDate(window._calculatedDueDate);
+    updateWeekDisplay();
+  }
+}
+
+function changeWeek(delta) {
+  window._weekManuallySet = true; // user is manually navigating — don't auto-reset
+  currentWeek = Math.max(4, Math.min(40, currentWeek + delta));
+  updateWeekDisplay();
+}
+
+function updateWeekDisplay() {
+  document.getElementById('weekNum').textContent = currentWeek;
+
+  // Find best matching data key
+  const keys = Object.keys(weekData).map(Number).filter(k => k < 100).sort((a,b)=>a-b);
+  let best = keys[0];
+  for (const k of keys) { if (k <= currentWeek) best = k; }
+  const d = weekData[best];
+
+  // Banner
+  document.getElementById('sizeEmoji').textContent = d.emoji;
+  document.getElementById('sizeText').textContent = 'About the size of a ' + d.size.toLowerCase();
+  const tri = d.tri === 1 ? 'First' : d.tri === 2 ? 'Second' : 'Third';
+  document.getElementById('stageText').textContent = `Week ${currentWeek} · ${tri} Trimester · ${d.dim}`;
+  const tagsEl = document.getElementById('sizeTags');
+  tagsEl.innerHTML = d.tags.map((t,i) => `<span class="tag ${i===1?'sage':''}">${t}</span>`).join('');
+
+  // Overview
+  document.getElementById('babyHappening').textContent = d.babyText;
+  document.getElementById('momHappening').textContent = d.momText;
+  document.getElementById('wowText').textContent = d.wow;
+
+  // Progress bar
+  const pct = Math.round(((currentWeek - 4) / 36) * 100);
+  document.getElementById('trimLabel').textContent = `${tri} Trimester`;
+  document.getElementById('trimPct').textContent = pct + '% complete';
+  document.getElementById('barFill').style.width = pct + '%';
+
+  // Upcoming tests
+  const testsEl = document.getElementById('upcomingTests');
+  if (currentWeek < 12) {
+    testsEl.innerHTML = '<strong style="color:var(--warm-brown)">Weeks 8–12:</strong> First prenatal visit, blood work, genetic counseling options, and your first ultrasound where you may hear the heartbeat for the first time.';
+  } else if (currentWeek < 20) {
+    testsEl.innerHTML = '<strong style="color:var(--warm-brown)">Weeks 14–20:</strong> NIPT (genetic screening), quad screen, and the exciting anatomy scan at ~20 weeks where you can see baby fully — and find out the sex if you wish!';
+  } else if (currentWeek < 28) {
+    testsEl.innerHTML = '<strong style="color:var(--warm-brown)">Weeks 24–28:</strong> Glucose challenge test (gestational diabetes screening), anatomy follow-up if needed, and regular growth measurements begin.';
+  } else if (currentWeek < 36) {
+    testsEl.innerHTML = '<strong style="color:var(--warm-brown)">Weeks 28–36:</strong> More frequent check-ins (every 2 weeks), Group B Strep test, kick counts, and discussing your birth plan with your provider.';
+  } else {
+    testsEl.innerHTML = '<strong style="color:var(--warm-brown)">Weeks 36–40+:</strong> Weekly appointments, cervical checks, NST (non-stress tests) if post-dates. Now is the time to finalize your birth plan and hospital bag!';
+  }
+
+  // Update milestone checklist for this week
+  updateMilestoneChecklist(currentWeek);
+}
+
+// ══════════════════════════════════════════════
+//  TABS
+// ══════════════════════════════════════════════
+
+function showTab(tabName, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabName).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+//  CHECKLIST
+// ══════════════════════════════════════════════
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+
+// ══════════════════════════════════════════════
+//  DEVELOPMENT TIMELINE
+// ══════════════════════════════════════════════
+
+const t1Weeks = [4,5,6,7,8,9,10,11,12,13];
+const t2Weeks = [14,15,16,17,18,19,20,21,22,23,24,25,26,27];
+const t3Weeks = [28,29,30,31,32,33,34,35,36,37,38,39,40];
+const infMonths = [100,101,102,103,104,105];
+
+const weekTitles = {
+  4:'Implantation & cell layers',5:'Neural tube & first heartbeat',6:'Heart beating, eyes forming',
+  7:'Brain segments, webbed fingers',8:'All major organs forming',9:'Embryo → Fetus milestone',
+  10:'Fingernails & tooth buds',11:'Hair follicles & hiccups',12:'Fingerprints, end of T1',
+  13:'Vocal cords, intestines moving',14:'Facial expressions & lanugo',15:'Bones hardening, taste buds',
+  16:'Hearing begins, quickening',17:'Skeleton visible on scan',18:'Very active, full hearing',
+  19:'Sensory development peaks',20:'Halfway! Taste buds & vernix',21:'Eyebrows & lashes forming',
+  22:'Lips, eyes distinct',23:'Hearing classical music!',24:'Face complete, lungs developing',
+  25:'Responding to your voice',26:'Eyes open for first time',27:'Brain wave patterns develop',
+  28:'Third trimester! REM sleep begins',29:'Muscles & lungs maturing',30:'Brain growing fastest now',
+  31:'All five senses working',32:'Skin smoothing with fat deposits',33:'Bones hardening fully',
+  34:'Lungs almost mature',35:'Kidneys fully developed',36:'Dropping into pelvis',
+  37:'Full term! Fine-tuning begins',38:'Organs fully ready',39:'Final week preparations',
+  40:'Birth! Fully developed'
+};
+
+function buildTimeline(containerId, weeks, triClass, isInfant) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  weeks.forEach(wk => {
+    const d = weekData[wk];
+    if (!d) return;
+    const item = document.createElement('div');
+    item.className = 'tl-item';
+    const active = (!isInfant && wk === currentWeek) ? 'border:2px solid var(--blush-deep);' : '';
+    const label = isInfant ? d.label : `Week ${wk}`;
+    const title = isInfant ? d.babyText.substring(0,60)+'...' : (weekTitles[wk] || '');
+    item.innerHTML = `
+      <div class="tl-dot ${triClass}" onclick="toggleTL(this)"></div>
+      <div class="tl-header" onclick="toggleTL(this.previousElementSibling)" style="${active}">
+        <span class="tl-week">${d.emoji} ${label}</span>
+        <span class="tl-title">${title}</span>
+        <span style="color:var(--text-light);font-size:0.75rem">▾</span>
+      </div>
+      <div class="tl-body">${isInfant ? d.babyText + '<br><br><em style="color:var(--sage-deep)">✨ ' + d.wow + '</em>' : d.babyText + '<br><br><em style="color:var(--sage-deep)">✨ ' + d.wow + '</em>'}</div>
+    `;
+    container.appendChild(item);
+  });
+}
+
+function toggleTL(dotOrHeader) {
+  const item = dotOrHeader.closest ? dotOrHeader.closest('.tl-item') : dotOrHeader.parentElement;
+  const body = item.querySelector('.tl-body');
+  body.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════
+//  LEARNING ACCORDION
+// ══════════════════════════════════════════════
+
+function buildLearnAccordion() {
+  const container = document.getElementById('learn-accordion');
+  learnData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'learn-section';
+    div.innerHTML = `
+      <div class="learn-header" onclick="toggleLearn(${i})">
+        <h3>${item.icon} ${item.title}${item.badge ? '<span class="parent-badge">📖 Deep Read</span>' : ''}</h3>
+        <span class="chevron" id="chev-${i}">▾</span>
+      </div>
+      <div class="learn-body" id="learn-body-${i}">${item.content}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function toggleLearn(i) {
+  const body = document.getElementById('learn-body-' + i);
+  const chev = document.getElementById('chev-' + i);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════
+//  AI CHAT
+// ══════════════════════════════════════════════
+
+async function sendAI() {
+  const input = document.getElementById('aiInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage(text, 'user');
+  input.value = '';
+  input.style.height = 'auto';
+
+  const sendBtn = document.getElementById('aiSend');
+  sendBtn.disabled = true;
+
+  // Typing indicator
+  const typingId = addTyping();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `You are Sproutly, a warm, knowledgeable, and reassuring pregnancy and baby development companion. You help parents navigate pregnancy from the moment of a positive test through their baby's first year. 
+
+Current week in the app: Week ${currentWeek}.
+
+Your tone is: warm, calm, evidence-based, never alarmist, and supportive. Use plain language. Be specific and practical. When relevant, acknowledge that parents should always consult their healthcare provider for personal medical advice. Keep responses focused and helpful — around 2–5 paragraphs or a short list when appropriate. Use the occasional gentle emoji to keep the tone warm. Never be dismissive. For anything that could indicate a medical emergency, always advise contacting a provider or 911 immediately.`,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    removeTyping(typingId);
+    const data = await response.json();
+    const reply = data.content?.map(c => c.text || '').join('') || 'I\'m sorry, I couldn\'t get a response right now. Please try again.';
+    addMessage(reply, 'ai');
+  } catch (e) {
+    removeTyping(typingId);
+    addMessage('I\'m having trouble connecting right now. Please check your connection and try again. 🌸', 'ai');
+  }
+
+  sendBtn.disabled = false;
+}
+
+function addMessage(text, role) {
+  const container = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `
+    <div class="msg-avatar">${role === 'ai' ? '🌸' : '👤'}</div>
+    <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
+  `;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function addTyping() {
+  const id = 'typing-' + Date.now();
+  const container = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = 'msg';
+  div.id = id;
+  div.innerHTML = `
+    <div class="msg-avatar">🌿</div>
+    <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+  `;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return id;
+}
+
+function removeTyping(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function quickAsk(q) {
+  document.getElementById('aiInput').value = q;
+  sendAI();
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Derive current week from default due date (Dec 19 2026) on load
+  window._calculatedDueDate = new Date('2026-12-19T12:00:00');
+  {
+    const lmpEq = new Date(window._calculatedDueDate.getTime() - 280 * 24 * 60 * 60 * 1000);
+    const today = new Date(); today.setHours(12,0,0,0);
+    const wk = Math.floor((today - lmpEq) / (7*24*60*60*1000));
+    currentWeek = Math.max(4, Math.min(40, wk));
+  }
+  updateWeekDisplay();
+  // Auto-calculate due date on load with IVF defaults
+  setTimeout(() => { calculateDueDate(); }, 100);
+  // Update header days left every load
+  const _d = new Date('2026-12-19T12:00:00');
+  const _today = new Date(); _today.setHours(12,0,0,0);
+  const _dl = Math.round((_d - _today)/(1000*60*60*24));
+  document.getElementById('headerDaysLeft').textContent = _dl > 0 ? _dl + ' days' : 'Any day!';
+  buildTimeline('t1-timeline', t1Weeks, 't1', false);
+  buildTimeline('t2-timeline', t2Weeks, 't2', false);
+  buildTimeline('t3-timeline', t3Weeks, 't3', false);
+  buildTimeline('t4-timeline', infMonths, 'inf', true);
+  buildLearnAccordion();
+  buildShopList();
+});
+
+// ══════════════════════════════════════════════
+//  DUE DATE CALCULATOR
+// ══════════════════════════════════════════════
+
+function toggleConcType() {
+  const type = document.getElementById('concType').value;
+  document.getElementById('transferRow').style.display = (type === 'natural') ? 'none' : 'flex';
+  document.getElementById('lmpRow').style.display = (type === 'natural') ? 'flex' : 'none';
+  document.getElementById('ivfNote').style.display = (type === 'natural') ? 'none' : 'block';
+}
+
+function calculateDueDate() {
+  const type = document.getElementById('concType').value;
+  let baseDate, daysToAdd;
+
+  if (type === 'ivf5') {
+    const val = document.getElementById('transferDate').value;
+    if (!val) { alert('Please enter a transfer date.'); return; }
+    baseDate = new Date(val + 'T12:00:00');
+    daysToAdd = 261;
+  } else if (type === 'ivf3') {
+    const val = document.getElementById('transferDate').value;
+    if (!val) { alert('Please enter a transfer date.'); return; }
+    baseDate = new Date(val + 'T12:00:00');
+    daysToAdd = 263;
+  } else {
+    const val = document.getElementById('lmpDate').value;
+    if (!val) { alert('Please enter your LMP date.'); return; }
+    baseDate = new Date(val + 'T12:00:00');
+    daysToAdd = 280;
+  }
+
+  const dueDate = new Date(baseDate);
+  dueDate.setDate(dueDate.getDate() + daysToAdd);
+
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  const daysLeft = Math.round((dueDate - today) / (1000 * 60 * 60 * 24));
+  const daysIn = Math.round((today - baseDate) / (1000 * 60 * 60 * 24));
+
+  // Gestational age
+  let gestDays;
+  if (type === 'ivf5') gestDays = daysIn + 19; // 2w5d at transfer
+  else if (type === 'ivf3') gestDays = daysIn + 17;
+  else gestDays = daysIn;
+
+  const gestWeeks = Math.floor(gestDays / 7);
+  const gestRem = gestDays % 7;
+
+  // Store globally
+  window._calculatedDueDate = dueDate;
+  // Only auto-set the week display on the very first calculation (page load)
+  // After that, let the user navigate freely with +/- buttons
+  if (!window._weekManuallySet) {
+    const lmpEq = new Date(dueDate.getTime() - 280 * 24 * 60 * 60 * 1000);
+    const wk = Math.floor((today - lmpEq) / (7*24*60*60*1000));
+    currentWeek = Math.max(4, Math.min(40, wk));
+    updateWeekDisplay();
+  }
+
+  // Show result card
+  const resultCard = document.getElementById('resultCard');
+  resultCard.style.display = 'block';
+
+  const opts = { month: 'long', day: 'numeric', year: 'numeric' };
+  document.getElementById('resultDueDate').textContent = dueDate.toLocaleDateString('en-US', opts);
+
+  const trimStr = gestWeeks < 14 ? 'First Trimester' : gestWeeks < 28 ? 'Second Trimester' : 'Third Trimester';
+  document.getElementById('resultSub').textContent = `${trimStr} · ${gestWeeks} weeks ${gestRem} days pregnant`;
+
+  // Countdown ring
+  const ring = document.getElementById('countdownRing');
+  if (daysLeft >= 0) {
+    const weeksLeft = Math.floor(daysLeft / 7);
+    const dRemain = daysLeft % 7;
+    ring.innerHTML = `
+      <div class="count-stat"><div class="count-num">${daysLeft}</div><div class="count-label">Days to Go</div></div>
+      <div class="count-divider"></div>
+      <div class="count-stat"><div class="count-num">${weeksLeft}</div><div class="count-label">Weeks Left</div></div>
+      <div class="count-divider"></div>
+      <div class="count-stat"><div class="count-num">${gestWeeks}</div><div class="count-label">Weeks Along</div></div>
+      <div class="count-divider"></div>
+      <div class="count-stat"><div class="count-num">${Math.round((gestWeeks/40)*100)}%</div><div class="count-label">Complete</div></div>
+    `;
+  } else {
+    ring.innerHTML = `<div class="count-stat"><div class="count-num" style="color:var(--sage-deep)">Past Due</div><div class="count-label">Baby may arrive any day!</div></div>`;
+  }
+
+  // Update header
+  const shortOpts = { month: 'short', day: 'numeric', year: 'numeric' };
+  document.getElementById('headerDueDate').textContent = dueDate.toLocaleDateString('en-US', shortOpts);
+  document.getElementById('headerDaysLeft').textContent = daysLeft >= 0 ? daysLeft + ' days' : 'Any day!';
+
+  // Build milestones
+  buildMilestones(baseDate, dueDate, type, today);
+}
+
+function addDays(date, n) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+
+function fmtDate(d) {
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function buildMilestones(baseDate, dueDate, type, today) {
+  // Calculate LMP equivalent
+  let lmpEquiv;
+  if (type === 'ivf5') {
+    lmpEquiv = new Date(baseDate);
+    lmpEquiv.setDate(lmpEquiv.getDate() - 19);
+  } else if (type === 'ivf3') {
+    lmpEquiv = new Date(baseDate);
+    lmpEquiv.setDate(lmpEquiv.getDate() - 17);
+  } else {
+    lmpEquiv = new Date(baseDate);
+  }
+
+  const w = (n) => addDays(lmpEquiv, n * 7);
+
+  const milestones = [
+    { label: 'Transfer / LMP', date: type === 'natural' ? lmpEquiv : baseDate, desc: type === 'natural' ? 'First day of last period' : 'Embryo transfer date' },
+    { label: 'Week 6', date: w(6), desc: 'Heartbeat may be visible on ultrasound' },
+    { label: 'Week 8', date: w(8), desc: 'First prenatal appointment' },
+    { label: 'Week 10', date: w(10), desc: 'NIPT genetic screening available' },
+    { label: 'Week 12', date: w(12), desc: 'End of first trimester; NT scan' },
+    { label: 'Week 16', date: w(16), desc: 'Quickening may begin; anatomy preview' },
+    { label: 'Week 20', date: w(20), desc: 'Anatomy scan — may find out the sex!' },
+    { label: 'Week 24', date: w(24), desc: 'Viability milestone; glucose test soon' },
+    { label: 'Week 28', date: w(28), desc: 'Third trimester begins; 3rd ultrasound' },
+    { label: 'Week 32', date: w(32), desc: 'Growth scan; bi-weekly appointments start' },
+    { label: 'Week 36', date: w(36), desc: 'Weekly appointments; Group B Strep test' },
+    { label: 'Week 37', date: w(37), desc: 'Full term — baby is ready!' },
+    { label: 'Due Date', date: dueDate, desc: 'Estimated date of arrival ✨' },
+  ];
+
+  const grid = document.getElementById('milestoneGrid');
+  grid.innerHTML = '';
+
+  milestones.forEach(m => {
+    const isPast = m.date < today;
+    const isNear = !isPast && (m.date - today) < 21 * 24 * 60 * 60 * 1000;
+    const tile = document.createElement('div');
+    tile.className = 'milestone-tile' + (isPast ? ' past' : '') + (isNear ? ' current' : '');
+    tile.innerHTML = `
+      <div class="mt-label">${m.label}</div>
+      <div class="mt-date">${fmtDate(m.date)}</div>
+      <div class="mt-desc">${m.desc}</div>
+    `;
+    grid.appendChild(tile);
+  });
+
+  document.getElementById('milestoneSection').style.display = 'block';
+}
+
+function showTabByName(name) {
+  const btn = document.getElementById('nav-' + name);
+  if (btn) showTab(name, btn);
+}
+
+
+// ══════════════════════════════════════════════
+//  SHOPPING LIST
+// ══════════════════════════════════════════════
+
+const shopData = [
+  {
+    id: 'hospital',
+    icon: '🏥',
+    title: 'Hospital Bag — Mom',
+    items: [
+      { label: 'ID, insurance card & birth plan copies', note: 'Make 3 copies', pri: 'must' },
+      { label: 'Comfortable robe or zip-front pajamas', note: 'For labor and recovery', pri: 'must' },
+      { label: 'Nursing bra (x2) or bralette', note: 'Wireless, soft cup', pri: 'must' },
+      { label: 'Postpartum underwear (high-waist, x5)', note: 'Or hospital mesh — take the hospital ones!', pri: 'must' },
+      { label: 'Thick overnight pads', note: 'Hospital provides some but bring extras', pri: 'must' },
+      { label: 'Going-home outfit (loose, stretchy)', note: 'You will still look 6 months pregnant', pri: 'must' },
+      { label: 'Toiletries & dry shampoo', note: 'Travel-size basics', pri: 'must' },
+      { label: 'Phone charger (long cable)', note: 'Outlets are never near the bed', pri: 'must' },
+      { label: 'Snacks for labor & after', note: 'Granola bars, crackers, fruit pouches', pri: 'must' },
+      { label: 'Lip balm', note: 'Breathing through labor dries lips out', pri: 'nice' },
+      { label: 'Hair ties / headband', note: 'For labor', pri: 'nice' },
+      { label: 'Tennis ball or massage tool', note: 'Back labor relief', pri: 'nice' },
+      { label: 'Warm socks with grip', note: 'Hospital floors are cold', pri: 'nice' },
+      { label: 'Your own pillow (in colored case)', note: 'Hospital pillows are flat', pri: 'nice' },
+      { label: 'Nipple cream (lanolin)', note: 'Use immediately after first feed', pri: 'must' },
+      { label: 'Nursing pads (disposable)', note: 'Milk may come in at hospital', pri: 'nice' },
+    ]
+  },
+  {
+    id: 'hospital_baby',
+    icon: '👶',
+    title: 'Hospital Bag — Baby',
+    items: [
+      { label: 'Infant car seat (installed before 36 weeks)', note: 'Hospital will not discharge without this', pri: 'must' },
+      { label: 'Going-home outfit (newborn & 0-3mo)', note: 'Bring both sizes — unpredictable', pri: 'must' },
+      { label: 'Swaddle blanket (x2)', note: 'Hospital provides but yours is cozier', pri: 'nice' },
+      { label: 'Newborn hat', note: 'Hospital provides, but a cute one is fun', pri: 'nice' },
+      { label: 'Mittens', note: 'Babies scratch themselves constantly', pri: 'nice' },
+    ]
+  },
+  {
+    id: 'sleep',
+    icon: '😴',
+    title: 'Sleep Setup',
+    items: [
+      { label: 'Crib or bassinet', note: 'AAP recommends room-sharing first 6 months', pri: 'must' },
+      { label: 'Firm, flat crib mattress', note: 'No memory foam — safety requirement', pri: 'must' },
+      { label: 'Waterproof mattress cover (x2)', note: 'Two so one is always clean', pri: 'must' },
+      { label: 'Fitted crib sheets (x3–4)', note: 'You will do laundry more than you think', pri: 'must' },
+      { label: 'White noise machine', note: 'Mimics womb sounds, transforms sleep', pri: 'must' },
+      { label: 'Swaddle wraps (x4–6)', note: 'Velcro swaddles are easier at 3am', pri: 'must' },
+      { label: 'Sleep sacks (various sizes)', note: 'For when baby can roll out of swaddle', pri: 'must' },
+      { label: 'Baby monitor with video', note: 'Video is worth the extra cost', pri: 'must' },
+      { label: 'Blackout curtains for nursery', note: 'Day naps are much easier', pri: 'nice' },
+      { label: 'Bedside bassinet (e.g. Halo, Snoo)', note: 'Makes night feeds so much easier', pri: 'ask' },
+      { label: 'Nursing pillow (e.g. Boppy, My Brest Friend)', note: 'Also great for tummy time', pri: 'must' },
+    ]
+  },
+  {
+    id: 'feeding',
+    icon: '🍼',
+    title: 'Feeding',
+    items: [
+      { label: 'Breast pump (insurance may cover)', note: 'Check your insurance — often free', pri: 'must' },
+      { label: 'Breast pump parts & extra flanges', note: 'Correct flange size is critical for comfort', pri: 'must' },
+      { label: 'Breast milk storage bags', note: 'Stock up — you go through them fast', pri: 'must' },
+      { label: 'Nursing bras (x3–4)', note: 'Comfortable, no underwire', pri: 'must' },
+      { label: 'Nipple cream (lanolin or coconut oil)', note: 'Apply after every feed first 2 weeks', pri: 'must' },
+      { label: 'Nursing pads (disposable & reusable)', note: 'Leaking is unpredictable', pri: 'must' },
+      { label: 'Bottles (x6–8) — various nipple flows', note: 'Start with slow flow; even if breastfeeding', pri: 'must' },
+      { label: 'Bottle brush & drying rack', note: 'Dedicated rack saves counter space', pri: 'must' },
+      { label: 'Formula (one can, just in case)', note: 'Having it reduces panic in emergencies', pri: 'nice' },
+      { label: 'Nursing cover or light muslin blanket', note: 'Personal preference', pri: 'nice' },
+      { label: 'Haakaa or silicone pump', note: 'Catches letdown on opposite side — passive pumping', pri: 'nice' },
+      { label: 'Lactation consultant contact saved', note: 'Most insurance covers LC visits', pri: 'must' },
+      { label: 'Baby-led weaning starter set (spoons, bowls)', note: 'For around 6 months', pri: 'nice' },
+      { label: 'High chair', note: 'Needed around 4–6 months', pri: 'must' },
+    ]
+  },
+  {
+    id: 'diapering',
+    icon: '🩲',
+    title: 'Diapering & Changing',
+    items: [
+      { label: 'Newborn diapers (one small pack)', note: "Don't stock up — baby may skip this size", pri: 'must' },
+      { label: 'Size 1 diapers (one box)', note: 'Most babies jump here fast', pri: 'must' },
+      { label: 'Size 2 & 3 diapers', note: 'Great shower/registry request — never expires', pri: 'ask' },
+      { label: 'Fragrance-free baby wipes (bulk)', note: 'You will use thousands. Seriously.', pri: 'must' },
+      { label: 'Diaper cream / zinc oxide paste', note: 'Desitin or Boudreaux\'s Butt Paste', pri: 'must' },
+      { label: 'Changing pad with waterproof cover (x2)', note: 'Always have a backup cover', pri: 'must' },
+      { label: 'Diaper pail with bags', note: 'Dedicate one to the nursery', pri: 'nice' },
+      { label: 'Portable changing pad', note: 'For on-the-go', pri: 'nice' },
+      { label: 'Wet bags (x2)', note: 'Waterproof bags for dirty items in diaper bag', pri: 'nice' },
+    ]
+  },
+  {
+    id: 'clothing',
+    icon: '👕',
+    title: 'Baby Clothing',
+    items: [
+      { label: 'Onesies — newborn & 0-3mo (x6–8 each)', note: 'Side-snap or magnetic are easiest', pri: 'must' },
+      { label: 'Sleepers / footie pajamas (x4–6 per size)', note: 'Zip-up, not snap — thank us later at 3am', pri: 'must' },
+      { label: 'Socks (x8–10 pairs per size)', note: 'They disappear constantly', pri: 'must' },
+      { label: 'Scratch mittens', note: 'Newborns scratch their faces', pri: 'must' },
+      { label: 'Soft hats', note: 'Newborns lose heat through their heads', pri: 'must' },
+      { label: 'Seasonally appropriate layers', note: 'A rule: dress baby in one more layer than you', pri: 'must' },
+      { label: 'Bibs (x10+)', note: 'Once drooling starts, you need many', pri: 'must' },
+      { label: 'Don\'t stock up ahead on larger sizes', note: 'Buy as needed — growth is unpredictable', pri: 'must' },
+    ]
+  },
+  {
+    id: 'bathing',
+    icon: '🛁',
+    title: 'Bath Time',
+    items: [
+      { label: 'Infant bathtub or bath insert', note: 'Look for one that works newborn → sitting', pri: 'must' },
+      { label: 'Gentle, fragrance-free baby wash & shampoo', note: 'Aveeno, Cetaphil Baby, or CeraVe Baby', pri: 'must' },
+      { label: 'Soft baby washcloths (x8+)', note: 'Also great for spit-up cleanup', pri: 'must' },
+      { label: 'Hooded baby towels (x2)', note: 'They\'re adorable and functional', pri: 'must' },
+      { label: 'Fragrance-free baby lotion', note: 'Especially if baby has dry skin or eczema', pri: 'nice' },
+      { label: 'Nail file or baby nail clippers', note: 'File is safer for newborns', pri: 'must' },
+      { label: 'Baby comb / soft brush', note: 'Even bald babies enjoy a gentle brush', pri: 'nice' },
+    ]
+  },
+  {
+    id: 'health',
+    icon: '🩺',
+    title: 'Health & Safety',
+    items: [
+      { label: 'Infant nasal aspirator (e.g. FridaBaby NoseFrida)', note: 'Sounds gross, works brilliantly', pri: 'must' },
+      { label: 'Rectal thermometer (most accurate)', note: 'Know how to use it before you need it', pri: 'must' },
+      { label: 'Infant Tylenol & Motrin (for after 2 months)', note: 'Have it before first vaccines', pri: 'must' },
+      { label: 'Saline nasal drops', note: 'For congestion in first few weeks', pri: 'must' },
+      { label: 'Baby nail scissors or clippers', note: 'Separate from the nail file', pri: 'must' },
+      { label: 'Baby first aid kit', note: 'Bandages, antiseptic, tweezers', pri: 'nice' },
+      { label: 'Infant gas drops (simethicone)', note: 'Mylicon — keep on hand', pri: 'nice' },
+      { label: 'Gripe water', note: 'Some parents swear by it for colic', pri: 'nice' },
+      { label: 'Outlet covers & cabinet locks', note: 'Need before 6 months, when crawling starts', pri: 'must' },
+      { label: 'Baby-proof furniture anchors', note: 'Dressers, bookshelves must be wall-anchored', pri: 'must' },
+      { label: 'Carbon monoxide & smoke detectors checked', note: 'Fresh batteries before baby comes home', pri: 'must' },
+    ]
+  },
+  {
+    id: 'travel',
+    icon: '🚗',
+    title: 'On the Go',
+    items: [
+      { label: 'Infant car seat — installed & inspected', note: 'Many fire stations offer free inspection', pri: 'must' },
+      { label: 'Stroller (with infant car seat compatibility)', note: 'Travel system simplifies life', pri: 'must' },
+      { label: 'Baby carrier / wrap', note: 'Hands-free carrying is a game-changer', pri: 'must' },
+      { label: 'Diaper bag', note: 'Backpack style preferred by most parents', pri: 'must' },
+      { label: 'Sun shade for car windows', note: 'Babies overheat easily', pri: 'nice' },
+      { label: 'Stroller weather cover', note: 'If in a cold or rainy climate', pri: 'nice' },
+      { label: 'Compact travel high chair', note: 'Needed for 6 months+', pri: 'nice' },
+    ]
+  },
+  {
+    id: 'comfort',
+    icon: '🧸',
+    title: 'Comfort & Play',
+    items: [
+      { label: 'Pacifiers (x4–6, various shapes)', note: 'Baby may reject some — try a few types', pri: 'must' },
+      { label: 'Bouncer or baby swing', note: 'Many babies only sleep in these at first', pri: 'ask' },
+      { label: 'Play mat with activity arch', note: 'Foundation of tummy time for months', pri: 'must' },
+      { label: 'High-contrast black & white toys', note: 'Best for newborn vision development', pri: 'nice' },
+      { label: 'Soft rattles and teethers', note: 'For 3–6 months when mouthing starts', pri: 'nice' },
+      { label: 'Baby books — board & cloth (x5+)', note: 'Read from day one, even if it feels silly', pri: 'ask' },
+      { label: 'Crinkle toys', note: 'Satisfies sensory curiosity around 3 months', pri: 'nice' },
+      { label: 'Jumper / exersaucer', note: 'Great for 4–6 months when baby wants to stand', pri: 'nice' },
+      { label: 'Baby-safe mirror', note: 'Babies are fascinated by their own reflection', pri: 'nice' },
+    ]
+  },
+  {
+    id: 'postpartum',
+    icon: '💛',
+    title: 'Postpartum Recovery — Mom',
+    items: [
+      { label: 'Peri bottle (for after vaginal birth)', note: 'Hospital gives you one — get a second', pri: 'must' },
+      { label: 'Witch hazel pads (Tucks)', note: 'Perineal cooling relief', pri: 'must' },
+      { label: 'Postpartum sitz bath or tub soak', note: 'Remarkable for healing', pri: 'nice' },
+      { label: 'Stool softener (Colace)', note: 'First postpartum BM is a genuine concern', pri: 'must' },
+      { label: 'Comfortable high-waist underwear (x7+)', note: 'You will live in these for weeks', pri: 'must' },
+      { label: 'Postpartum belly wrap or binder', note: 'Helps with abdominal support & comfort', pri: 'nice' },
+      { label: 'Freezer meals prepped', note: 'Make or stock 2–3 weeks of easy meals', pri: 'must' },
+      { label: 'Vitamins: continue prenatal + DHA', note: 'Especially important if breastfeeding', pri: 'must' },
+      { label: 'Pelvic floor PT referral', note: 'Get this before you deliver — book early', pri: 'ask' },
+    ]
+  },
+  {
+    id: 'nursery',
+    icon: '🪴',
+    title: 'Nursery Essentials',
+    items: [
+      { label: 'Dresser or wardrobe (wall-anchored)', note: 'Must be secured to wall for safety', pri: 'must' },
+      { label: 'Glider or rocking chair', note: 'You will spend hundreds of hours here', pri: 'ask' },
+      { label: 'Good floor lamp or dimmer', note: 'Bright lights signal daytime — dim for night feeds', pri: 'must' },
+      { label: 'Hamper for baby clothes', note: 'Keeps the room manageable', pri: 'nice' },
+      { label: 'Small bookshelf for baby books', note: 'Makes books accessible from day one', pri: 'nice' },
+      { label: 'Nightlight (warm red tone)', note: 'Red light least disruptive to sleep', pri: 'nice' },
+    ]
+  },
+];
+
+function buildShopList() {
+  const container = document.getElementById('shopAccordion');
+  if (!container) return;
+  container.innerHTML = '';
+
+  shopData.forEach((section, si) => {
+    const div = document.createElement('div');
+    div.className = 'shop-section';
+    const total = section.items.length;
+    div.innerHTML = `
+      <div class="shop-header" onclick="toggleShop(${si})">
+        <div class="shop-header-left">
+          <span style="font-size:1.3rem">${section.icon}</span>
+          <h3>${section.title}</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="shop-progress" id="shop-prog-${si}">0 / ${total}</span>
+          <span class="chevron" id="shop-chev-${si}">▾</span>
+        </div>
+      </div>
+      <div class="shop-body" id="shop-body-${si}">
+        ${section.items.map((item, ii) => `
+          <div class="shop-item" id="si-${si}-${ii}" onclick="toggleShopItem(${si},${ii})">
+            <div class="shop-box"></div>
+            <div class="shop-label">
+              <strong>${item.label}</strong>
+              ${item.note ? `<span>${item.note}</span>` : ''}
+            </div>
+            <span class="shop-priority pri-${item.pri}">${item.pri === 'must' ? 'MUST HAVE' : item.pri === 'nice' ? 'NICE TO HAVE' : 'ASK FOR'}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+
+  updateShopSummary();
+}
+
+function toggleShop(si) {
+  const body = document.getElementById('shop-body-' + si);
+  const chev = document.getElementById('shop-chev-' + si);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function toggleShopItem(si, ii) {
+  const el = document.getElementById(`si-${si}-${ii}`);
+  el.classList.toggle('checked');
+  updateShopProgress(si);
+  updateShopSummary();
+}
+
+function updateShopProgress(si) {
+  const section = shopData[si];
+  const total = section.items.length;
+  let checked = 0;
+  for (let ii = 0; ii < total; ii++) {
+    const el = document.getElementById(`si-${si}-${ii}`);
+    if (el && el.classList.contains('checked')) checked++;
+  }
+  const prog = document.getElementById('shop-prog-' + si);
+  if (prog) {
+    prog.textContent = `${checked} / ${total}`;
+    prog.className = 'shop-progress' + (checked === total ? ' done' : '');
+  }
+}
+
+function updateShopSummary() {
+  let total = 0, checked = 0;
+  shopData.forEach((section, si) => {
+    section.items.forEach((_, ii) => {
+      total++;
+      const el = document.getElementById(`si-${si}-${ii}`);
+      if (el && el.classList.contains('checked')) checked++;
+    });
+  });
+  const left = total - checked;
+  document.getElementById('shopTotal').textContent = total;
+  document.getElementById('shopChecked').textContent = checked;
+  document.getElementById('shopLeft').textContent = left;
+  document.getElementById('shopBar').style.width = total > 0 ? Math.round((checked/total)*100) + '%' : '0%';
+}
+
+
+</script>
+</body>
+</html>
